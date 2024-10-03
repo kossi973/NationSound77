@@ -1,0 +1,72 @@
+[
+  {
+      "id": "1",
+      "nom": "artiste1",
+      "style": "Jazz",
+      "image": "./images/produit1.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "2",
+      "nom": "artiste2",
+      "style": "Rock",
+      "image": "./images/produit2.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "3",
+      "nom": "artiste3",
+      "style": "Reggae",
+      "image": "./images/produit3.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "4",
+      "nom": "artiste4",
+      "style": "Zouk",
+      "image": "./images/produit4.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "5",
+      "nom": "artiste5",
+      "style": "Jazz",
+      "image": "./images/produit5.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "6",
+      "nom": "artiste6",
+      "style": "Zouk",
+      "image": "./images/produit6.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "7",
+      "nom": "artiste7",
+      "style": "Jazz",
+      "image": "./images/produit7.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "8",
+      "nom": "artiste8",
+      "style": "Blues",
+      "image": "./images/produit8.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "9",
+      "nom": "artiste9",
+      "style": "Blues",
+      "image": "./images/produit9.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    },
+  {
+      "id": "10",
+      "nom": "artiste10",
+      "style": "Salsa",
+      "image": "./images/produit10.jpg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque repellat debitis mollitia atque, esse perspiciatis dolorem eveniet assumenda quia modi eligendi delectus excepturi vel voluptatum cumque aperiam expedita error sit."      
+    }
+]
