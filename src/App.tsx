@@ -6,6 +6,7 @@ import Programmation from "./pages/Programmation"
 import NationMap from "./pages/NationMap"
 import Partenaires from "./pages/Partenaires"
 import Contacts from "./pages/Contacts"
+import MentionsLegales from "./pages/MentionsLegales"
 
 
 // Au démarrage, récupérer le panier du stockage local ou réinitialiser le panier.
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/NationMap" element={<NationMap />}/>
                 <Route path="/Partenaires" element={<Partenaires />}/>
                 <Route path="/Contacts" element={<Contacts />}/>
+                <Route path="/MentionsLegales" element={<MentionsLegales />}/>
             </Routes>
           <Footer />
       {/* </PanierContext.Provider> */}

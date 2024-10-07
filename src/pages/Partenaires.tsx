@@ -1,4 +1,9 @@
+import { useEffect } from "react";
+
 function Partenaires() {
+    useEffect(() => {
+        window.scrollTo(0, 0);   
+      }, []);
 
     return (
         // page partenaires
