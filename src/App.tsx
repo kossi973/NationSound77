@@ -7,25 +7,23 @@ import NationMap from "./pages/NationMap"
 import Partenaires from "./pages/Partenaires"
 import Contacts from "./pages/Contacts"
 import MentionsLegales from "./pages/MentionsLegales"
+import Faq from "./pages/Faq"
 
-
-// Au démarrage, récupérer le panier du stockage local ou réinitialiser le panier.
 function App() {
   //Structurer les pages de l'application
   return (
     <>
-      {/* <PanierContext.Provider value={{ panier, setPanier }}>      */}
           <Header />
             <Routes >
                 <Route path="/" element={<Home />} />
                 <Route path="/Programmation" element={<Programmation />}/>
                 <Route path="/NationMap" element={<NationMap />}/>
+                <Route path="/Faq" element={<Faq />}/>
                 <Route path="/Partenaires" element={<Partenaires />}/>
                 <Route path="/Contacts" element={<Contacts />}/>
                 <Route path="/MentionsLegales" element={<MentionsLegales />}/>
             </Routes>
           <Footer />
-      {/* </PanierContext.Provider> */}
     </>
   )
 }

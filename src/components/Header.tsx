@@ -19,7 +19,7 @@ const Header = () => {
                         <li className='mr-4 hover:text-2xl delay-50'><Link to={"/"}>Accueil</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-50'><Link to={"/Programmation"} >Programmation</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-50'><Link to={"/Programmation"} >Billeterie</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-50'><Link to={"/Programmation"} >FAQ</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-50'><Link to={"/Faq"} >FAQ</Link></li>
                         <li className='mr-10 mb-6 hover:text-2xl delay-50'><Link to={"/NationMap"} >Carte Interactive </Link></li>
                     </ul>                    
                 </nav> 
@@ -42,7 +42,7 @@ const Header = () => {
                                 <Link to={"/"} className='my-6 hover:text-2xl delay-50'>Accueil </Link>
                                 <Link to={"/Programmation"} className='mb-6 hover:text-2xl delay-50'>Programmation</Link>
                                 <Link to={"/Programmation"} className='mb-6 hover:text-2xl delay-50'>Billeterie </Link>
-                                <Link to={"/Programmation"} className='mb-6 hover:text-2xl delay-50'>FAQ </Link>
+                                <Link to={"/Faq"} className='mb-6 hover:text-2xl delay-50'>FAQ </Link>
                                 <Link to={"/NationMap"} className='mb-6 hover:text-2xl delay-50'>Carte Interactive </Link>
                             </nav>
                         </div>                                

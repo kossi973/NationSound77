@@ -58,17 +58,17 @@ function Home() {
     return (
         // page principale SOUND NATION
         <main className='min-h-screen bg-hero'>
-            <div className='min-h-screen bg-amber-800/90 flex contain-fluid overflow-hidden grid text-yellow-100'>             
+            <div className='min-h-screen bg-amber-600/90 flex contain-fluid overflow-hidden grid text-yellow-100'>             
                 {/* titre */}
                 <div className='bg-hero2 bg-cover bg-bottom h-40 shadow-lg shadow-orange-300'>
                     <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>FESTIVAL NATION SOUND</h1>
                 </div>
                 
-                <div className='h-auto my-3 w-full md:w-1/2 mx-auto bg-sky-700/60 rounded-lg shadow-lg shadow-orange-300'>
+                <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 rounded-lg shadow-lg shadow-orange-300'>
                     { Object.keys(actualites).map((jours: string ) => (
                         <div key={jours} className='mb-16'>
                             <p className='mt-2 text-xl text-center'>-- JOUR {jours} --</p>
-                            <p className='text-yellow-400 font-bold text-xl text-center'>{calendrier.map((event) => event.jour == jours ? event.date : "")}</p>
+                            <p className='text-yellow-400 text-xl text-center'>{calendrier.map((event) => event.jour == jours ? event.date : "")}</p>
                             <hr className='my-2'></hr>
                             <ul className='pl-16 xl:pl-40'>
                                 {actualites[jours].map((event) => (
@@ -76,7 +76,7 @@ function Home() {
                                         <div className='flex'>
                                             <img src={artistesList.find((artiste) => artiste.nom === event.artiste)?.image || logoUrl} alt="Nation Sound" className='rounded-md w-12 h-12 md:size-24'/>
 
-                                            <p className='pl-4 my-auto italic font-bold text-lg'>{event.horaire} h - {event.event} {event.artiste} - scene {event.scene}</p>
+                                            <p className='pl-4 my-auto italic text-lg'>{event.horaire} h - {event.event} {event.artiste} - scene {event.scene}</p>
                                         </div>
                                     </li>
                                 ))}
@@ -85,13 +85,13 @@ function Home() {
                     ))}
                 </div>
                 
-                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-sky-700/60 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
+                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
                         <Link to={"/Programmation"}>PROGRAMMATION</Link>
                 </button>
-                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-sky-700/60 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
+                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
                         <p>BILLETERIE</p>
                 </button>
-                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-sky-700/60 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
+                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
                         <Link to={"/NationMap"}>CARTE INTERACTIVE</Link>
                 </button>
             </div>

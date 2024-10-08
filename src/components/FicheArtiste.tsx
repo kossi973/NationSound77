@@ -30,10 +30,10 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
           <button onClick={OuvrirFiche} className='text-cyan-200 underline'>Voir +</button>
       </div>
       <dialog className="overscroll-none bg-hero2 rounded-md text-yellow-100 absolute mt-36 h-full w-full md:w-1/3" ref={dialogRef}>
-        <div className='bg-yellow-900/90 pb-12' >
+        <div className='bg-blue-800/80 pb-12' >
             <button className='text-md mt-4 ml-4 border-2 rounded-full px-2' onClick={FermerFiche}>X</button>
             <h1 className='grid justify-center text-3xl mb-8 border-b border-b-yellow-600 pb-4 font-bold'>La story de l'artiste</h1>
-            <div className='mx-10 shadow-lg shadow-orange-300'>   
+            <div className='bg-blue-800 mx-10 shadow-lg shadow-orange-300'>   
                 <img src={(image).substring(1)} alt={nom} className='rounded-t w-full mb-4'/>
                 <p className='font-bold pl-2 mb-4'>{nom}</p>
                 <p className='pl-2 mb-4'>{style}</p> 

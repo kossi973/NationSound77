@@ -144,12 +144,12 @@ function Programmation() {
     return (
         // page programmation
         <main className='min-h-screen bg-hero'>
-            <div className='min-h-screen bg-amber-800/80 '>
-                <div className='bg-amber-800/30 flex contain-fluid overflow-hidden grid text-yellow-100'>
+            <div className='min-h-screen bg-amber-600/90 '>
+                <div className='bg-amber-600/30 flex contain-fluid overflow-hidden grid text-yellow-100'>
                     <div className='bg-hero2 bg-cover bg-bottom h-40 shadow-lg shadow-orange-300'>
                         <h1 className='mt-12 h-12 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>PROGRAMMATION</h1>
                     </div>
-                    <div className='flex flex-wrap '>
+                    <div className='mx-10 mt-5 pb-5 flex flex-wrap bg-blue-800/80 rounded-lg'>
                         {/* Définir les listes de filtres; jour, horaires, style et scene */}
                         <div> 
                             {<SelectJour defaultValue={jour} onSelect={handleOnSelectJour} />} 
@@ -167,8 +167,8 @@ function Programmation() {
                             <p className="px-2 ml-2 text-amber-200 bg-amber-700 rounded-lg border-2 border-amber-200 active:shadow-xl active:bg-amber-500">Tous les artistes</p>                            
                         </button>
                     </div>
-                    <div className='m-10 shadow-lg shadow-orange-300 bg-sky-700/60 rounded-lg'>
-                        <p className='flex justify-center font-bold italic text-2xl mb-4 pb-2 border-b border-b-yellow-600'>Les artistes du festival</p>
+                    <div className='m-10 shadow-lg shadow-orange-300 bg-blue-800/80 rounded-lg'>
+                        <p className='pt-2 flex justify-center font-bold italic text-2xl mb-4 pb-2 border-b border-b-yellow-600'>Les artistes du festival</p>
                         {/* <hr className='mb-10' />  */}
                         <ul className='px-10 flex flex-wrap justify-center'>
                             {filteredArtistes.map((artiste) => (
@@ -180,9 +180,7 @@ function Programmation() {
                                         <p className='pl-2'>{artiste.style}</p>
                                                                                                             
                                         {<FicheArtiste {...{artiste: artiste, eventsArtiste: eventsList.filter((event) => (event.artiste === artiste.nom))}}/>}
-
-                                        {/* <Link to='/pages/FicheArtiste' state={{from:'Programmation', artiste: artiste, events: eventsList.filter((event) => (event.artiste === artiste.nom))}}> */}    
-                                        {/* </Link> */}                                    
+                                  
                                 </li>
                             ))}
                         </ul>
