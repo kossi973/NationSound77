@@ -1,28 +1,33 @@
 
-// Définir la structure de l'event
-export interface EventsListProps {
-  id : string,
-  jour : number,
-  horaire : number,
-  event : string,
-  artiste: string,
-  scene: number,
-}
-
 // Définir la structure du calendrier
 export interface CalendrierProps {
-  id : string,
-  jour : string,
-  date : string,
+  acf : {
+    jour_festival : string,
+    date_festival : string,
+  }
+
+}
+
+// Définir la structure de l'event
+export interface EventsListProps {
+  acf : {
+    jour_event : number,
+    horaire_event : string,
+    event_festival : string,
+    artiste_festival : string,
+    scene_festival : number,
+  }
+    
 }
 
 // Définir la structure de l'artiste
 export interface ArtisteProps {
-  id : string,
-  nom: string,
-  style : string,
-  image : string,
-  description: string,
+  acf : {
+    nom_de_lartiste : string,
+    style_de_lartiste : string,
+    description_de_lartiste : string,
+    url_du_visuel : string,
+  }  
 }
 
 // Définir la structure des markers
