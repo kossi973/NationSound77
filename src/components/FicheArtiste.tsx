@@ -9,7 +9,7 @@ export interface FicheProps {
 
 // Afficher la fiche de l'artiste
 const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
-  // const {acf.url_du_visuel, acf.nom_de_lartiste, acf.style_de_lartiste, acf.description_de_lartiste} = artiste;
+  const {url_du_visuel, nom_de_lartiste, style_de_lartiste, description_de_lartiste} = artiste.acf;
 
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
@@ -27,18 +27,18 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
   return (
     <>
       <div className='text-right'>
-          <button onClick={OuvrirFiche} className='text-cyan-200 underline'>Voir +</button>
+          <button onClick={OuvrirFiche} className='text-cyan-200 underline font-bold'>Voir +</button>
       </div>
-      <dialog className="overscroll-none bg-hero2 rounded-md text-yellow-100 absolute mt-36 h-full w-full md:w-1/3" ref={dialogRef}>
-        <div className='bg-blue-800/80 pb-12' >
+      <dialog className="min-h-screen overscroll-none bg-hero2 rounded-md text-yellow-100 absolute mt-36 h-full w-full md:w-1/3" ref={dialogRef}>
+        <div className='bg-blue-800/90 pb-12' >
             <button className='text-md mt-4 ml-4 border-2 rounded-full px-2' onClick={FermerFiche}>X</button>
             <h1 className='grid justify-center text-3xl mb-8 border-b border-b-yellow-600 pb-4 font-bold'>La story de l'artiste</h1>
-            <div className='bg-blue-800 mx-10 shadow-lg shadow-orange-300'>   
-                <img src={artiste.acf.url_du_visuel} alt={artiste.acf.nom_de_lartiste} className='rounded-t w-full mb-4'/>
-                <p className='font-bold pl-2 mb-4'>{artiste.acf.nom_de_lartiste}</p>
-                <p className='pl-2 mb-4'>{artiste.acf.style_de_lartiste}</p> 
-                <p className='pl-2 mb-4 pb-2 border-b border-b-yellow-600'>{artiste.acf.description_de_lartiste}</p>
-                <p className='font-bold mb-1'>Programmation</p>
+            <div className='text-xl bg-blue-800 mx-10 shadow-lg shadow-orange-300'>   
+                <img src={url_du_visuel} alt={nom_de_lartiste} className='rounded-t w-full mb-4'/>
+                <p className='font-bold pl-2 mb-4'>{nom_de_lartiste}</p>
+                <p className='pl-2 mb-4'>{style_de_lartiste}</p> 
+                <p className='pl-2 mb-4 pb-2 border-b border-b-yellow-600'>{description_de_lartiste}</p>
+                <p className='pl-2 font-bold mb-1'>Programmation</p>
                 <hr className="mb-2"/>
                 <ul className="italic">
                   {eventsArtiste && eventsArtiste.length > 0 ? (
@@ -46,12 +46,12 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
                         <li className="mb-2" key={index}>
                             <div className="ml-2" >
                                 <p>{event.acf.event_festival} sur la scène {event.acf.scene_festival}</p>
-                                <p>Jour {event.acf.jour_event} - {event.acf.horaire_event}h</p>
+                                <p>Jour {event.acf.jour_event} - {event.acf.horaire_event.slice(0,5)}</p>
                             </div>
                             <hr className="mt-2 mb-4"/>
                         </li>
                       ))) : (
-                        <p>No events available</p>
+                      <p>No events available</p>
                     )}                    
                 </ul>
             </div>          

@@ -32,12 +32,14 @@ export interface ArtisteProps {
 
 // Définir la structure des markers
 export interface MarkersProps {
-  id : string,
-  urlMarker : string,
-  nom: string,
-  latitude : number,
-  longitude : number,
-  category: string,
+  acf : {
+    urlMarker : string,
+    nomMarker : string,
+    latitudeMarker : number,
+    longitudeMarker : number,
+    categorieMarker: string,
+  }
+
 }
 
 // Définir la structure des filtres

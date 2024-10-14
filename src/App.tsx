@@ -8,7 +8,6 @@ import Partenaires from "./pages/Partenaires"
 import Contacts from "./pages/Contacts"
 import MentionsLegales from "./pages/MentionsLegales"
 import Faq from "./pages/Faq"
-import WordPressData from "./pages/testwp"
 
 function App() {
   //Structurer les pages de l'application
@@ -23,7 +22,6 @@ function App() {
                 <Route path="/Partenaires" element={<Partenaires />}/>
                 <Route path="/Contacts" element={<Contacts />}/>
                 <Route path="/MentionsLegales" element={<MentionsLegales />}/>
-                <Route path="/WordPressData" element={<WordPressData />}/>
             </Routes>
           <Footer />
     </>

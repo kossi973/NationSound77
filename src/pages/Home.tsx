@@ -36,7 +36,7 @@ function Home() {
     useEffect(() => { //importer le calendrier
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/calendrier-festival?_fields=acf');
+            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc');
             if (!response.ok) {
               throw new Error('Erreur lors de la récupération des données');
             }
@@ -56,7 +56,7 @@ function Home() {
     useEffect(() => { //importer la liste des artistes
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50');
+            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc');
             if (!response.ok) {
               throw new Error('Erreur lors de la récupération des données');
             }
@@ -93,10 +93,10 @@ function Home() {
     
     const formatDate = (dateString: string) => {
         const annee = dateString.slice(0,4);
-        const month = dateString.slice(4,6);
+        const moisAconvertir = dateString.slice(4,6);
         const jour = dateString.slice(6,8);
         let mois;
-        switch (month) {
+        switch (moisAconvertir) {
           case "01" : mois = "janvier"; break;
           case "02" : mois = "février"; break;
           case "03" : mois = "mars"; break;

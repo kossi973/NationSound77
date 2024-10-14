@@ -5,6 +5,9 @@ import "leaflet/dist/leaflet.css";
 import {MarkersProps} from '../config/Context';
 import {FiltersMarkersProps} from '../config/Context';
 
+const centerLat = 48.84840264440768;
+const centerLong = 2.6710615016030226;
+
 // Define custom icon
 function customIcon(urlMarker: string) {
   return new L.Icon({
@@ -55,30 +58,33 @@ const filtresMarkers = [
 
 const NationMap = () => {
   const mapRef = useRef(null);
-  const [markers, setMarkers] = useState<MarkersProps[]>([{
-    "id": "id1",
-    "urlMarker": "https://cdn.icon-icons.com/icons2/523/PNG/512/information_icon-icons.com_52388.png",
-    "nom": "Festival Nation Sound - Parc de Rentilly",
-    "latitude": 48.84840264440768, 
-    "longitude": 2.6710615016030226,
-    "category": "infos"
-  }]);
+  const [markers, setMarkers] = useState<MarkersProps[]>([]);
   const [filteredMarkers, setfilteredMarkers] = useState<MarkersProps[]>([]);
-  
-  useEffect(() => { //importer la liste des markers
-    fetch('markers.json')
-        .then((response) => response.json())
-        .then((json) => {
-            setMarkers(json);
-            // setfilteredMarkers(json);                     
-        })
-        .catch((error) => {alert(error)});
-  },[]);
+ 
+  useEffect(() => { //importer la liste des points d'intérêts (POI)
+    const fetchPosts = async () => {
+        try {
+        const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50');
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des données');
+        }
+        const data = await response.json();
+        setMarkers(data);
+        } catch (error: any) {
+        <p>{error}</p>;
+        } finally {
+        <p>Chargement en cours...</p>;
+        }
+        
+        };    
+        fetchPosts();       
+    
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     // Afficher les markers au démarrage
-    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.category) && filtre.check )))    
+    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )))    
   }, [markers]);
 
   // Afficher les markers filtrés
@@ -88,7 +94,7 @@ const NationMap = () => {
     } else {
       filtresMarkers.forEach(filter => filter.check = filter.label === filtre.label);
     }
-    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.category) && filtre.check )));
+    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )));
   };
   
   return (
@@ -102,7 +108,7 @@ const NationMap = () => {
       </div>
       <div>
         <MapContainer
-          center={[markers[0].latitude, markers[0].longitude]}
+          center={[centerLat, centerLong]}
           zoom={15}
           ref={mapRef}
           style={{ zIndex: 5, height: "73vh", width: "100vw" }}
@@ -111,9 +117,9 @@ const NationMap = () => {
             attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {filteredMarkers.map((marker) => (
-            <Marker key={marker.id} position={[marker.latitude, marker.longitude]} icon={customIcon(marker.urlMarker)}>
-              <Popup>{marker.nom}</Popup>
+          {filteredMarkers.map((marker, index) => (
+            <Marker key={index} position={[marker.acf.latitudeMarker, marker.acf.longitudeMarker]} icon={customIcon(marker.acf.urlMarker)}>
+              <Popup>{marker.acf.nomMarker}</Popup>
             </Marker>
           ))}
         </MapContainer>

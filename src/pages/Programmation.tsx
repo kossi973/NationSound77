@@ -2,7 +2,6 @@ import { EventsListProps } from '../config/Context';
 import { ArtisteProps } from '../config/Context';
 import { useState, useEffect, ChangeEvent } from 'react';
 import FicheArtiste from '../components/FicheArtiste';
-// import { FicheProps } from '../components/FicheArtiste';
 
 type SelectFilters1Props = {
     defaultValue: number;
@@ -103,27 +102,27 @@ function Programmation() {
         };    
         fetchPosts();       
         
-      }, []);
+    }, []);
 
-      useEffect(() => { //importer la liste des artistes
-        const fetchPosts = async () => {
-          try {
-            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50');
-            if (!response.ok) {
-              throw new Error('Erreur lors de la récupération des données');
-            }
-            const data = await response.json();
-            setArtistesList(data);
-          } catch (error: any) {
-            <p>{error}</p>;
-          } finally {
-            <p>Chargement en cours...</p>;
-          }
-          
+    useEffect(() => { //importer la liste des artistes
+    const fetchPosts = async () => {
+        try {
+        const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc');
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des données');
+        }
+        const data = await response.json();
+        setArtistesList(data);
+        } catch (error: any) {
+        <p>{error}</p>;
+        } finally {
+        <p>Chargement en cours...</p>;
+        }
+        
         };    
         fetchPosts();       
-        
-      }, []);
+    
+    }, []);
 
     const handleOnSelectJour = (event: ChangeEvent<HTMLSelectElement>) => { // gérer la sélection des jours
         const jour = Number(event.target.value);        
@@ -197,9 +196,8 @@ function Programmation() {
                         {/* <hr className='mb-10' />  */}
                         <ul className='px-10 flex flex-wrap justify-center'>
                             {filteredArtistes.map((artiste, index) => (
-                                <li key={index} className='w-40 md:w-64 rounded text-white italic mb-10 md:mb-32 mx-5 bg-yellow-700/20 shadow shadow-yellow-100'>
+                                <li key={index} className='w-40 md:w-64 rounded text-white italic mb-10 md:mb-32 mx-5 bg-yellow-700/20 shadow-lg shadow-cyan-300'>
                                     {/* afficher la fiche de l'artiste et le lien vers sa programmation journalière */}
-
                                         <img src={artiste.acf.url_du_visuel} alt={artiste.acf.nom_de_lartiste} className='rounded-t w-40 h-40 md:size-64'/>
                                         <p className='font-bold pl-2'>{artiste.acf.nom_de_lartiste}</p>
                                         <p className='pl-2'>{artiste.acf.style_de_lartiste}</p>
