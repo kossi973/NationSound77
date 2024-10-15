@@ -91,7 +91,9 @@ function Programmation() {
               throw new Error('Erreur lors de la récupération des données');
             }
             const data = await response.json();
-            setEventsList(data);
+            const trierHoraires = data.sort((a:any, b:any) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
+            const trierJours = trierHoraires.sort((a:any, b:any) => a.acf.jour_event - b.acf.jour_event);
+            setEventsList(trierJours);
             
           } catch (error: any) {
             <p>{error}</p>;
@@ -104,6 +106,7 @@ function Programmation() {
         
     }, []);
 
+    
     useEffect(() => { //importer la liste des artistes
     const fetchPosts = async () => {
         try {
