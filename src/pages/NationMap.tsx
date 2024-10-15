@@ -4,6 +4,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {MarkersProps} from '../config/Context';
 import {FiltersMarkersProps} from '../config/Context';
+import { EventsListProps } from "../config/Context";
 
 const centerLat = 48.84840264440768;
 const centerLong = 2.6710615016030226;
@@ -60,6 +61,7 @@ const NationMap = () => {
   const mapRef = useRef(null);
   const [markers, setMarkers] = useState<MarkersProps[]>([]);
   const [filteredMarkers, setfilteredMarkers] = useState<MarkersProps[]>([]);
+  const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
  
   useEffect(() => { //importer la liste des points d'intérêts (POI)
     const fetchPosts = async () => {
@@ -97,6 +99,43 @@ const NationMap = () => {
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )));
   };
   
+  useEffect(() => { //importer la programmation
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des données');
+        }
+        const data = await response.json();
+        const trierHoraires = data.sort((a:any, b:any) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
+        const trierJours = trierHoraires.sort((a:any, b:any) => a.acf.jour_event - b.acf.jour_event);
+        setEventsList(trierJours);
+        
+      } catch (error: any) {
+        <p>{error}</p>;
+      } finally {
+        <p>Chargement en cours...</p>;
+      }
+      
+    };    
+    fetchPosts();       
+    
+  }, []);
+
+  const AfficherPOIInfos = (categoriePOI: string, nomPOI: string) => {
+    let infosScene;
+    if (categoriePOI !== "scene") {
+      infosScene = nomPOI;
+    } else { 
+        const noScene = Number(nomPOI.slice(6,7));
+        
+        const sceneEvents = eventsList.map((event) => event.acf.scene_festival === noScene ? " /// Jour " + event.acf.jour_event + " : " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival : "" );    
+        
+        infosScene = nomPOI + sceneEvents.join("");
+    };
+    return infosScene;
+  }
+
   return (
     <>
       <div className="flex flex-wrap justify-between md:justify-end p-2 bg-sky-200">
@@ -119,7 +158,7 @@ const NationMap = () => {
           />
           {filteredMarkers.map((marker, index) => (
             <Marker key={index} position={[marker.acf.latitudeMarker, marker.acf.longitudeMarker]} icon={customIcon(marker.acf.urlMarker)}>
-              <Popup>{marker.acf.nomMarker}</Popup>
+              <Popup>{AfficherPOIInfos(marker.acf.categorieMarker, marker.acf.nomMarker)}</Popup>
             </Marker>
           ))}
         </MapContainer>
