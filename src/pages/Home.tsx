@@ -147,13 +147,13 @@ function Home() {
                 </div>
                 
                 <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
-                        <Link to={"/Programmation"}>PROGRAMMATION</Link>
+                  <Link to={"/Programmation"}>PROGRAMMATION</Link>
                 </button>
                 <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
-                        <p>BILLETERIE</p>
+                  <Link to={"/Billeterie"}>BILLETERIE</Link>
                 </button>
                 <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
-                        <Link to={"/NationMap"}>CARTE INTERACTIVE</Link>
+                  <Link to={"/NationMap"}>CARTE INTERACTIVE</Link>
                 </button>
             </div>
         </main>
