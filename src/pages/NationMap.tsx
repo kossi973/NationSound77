@@ -131,7 +131,7 @@ const NationMap = () => {
         
         const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene).map(event => " /// Jour " + event.acf.jour_event + " : " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival);    
         
-        infosScene = nomPOI + sceneEvents;
+        infosScene = nomPOI + sceneEvents.join('\n');
     };
     return infosScene;
   }
@@ -158,7 +158,7 @@ const NationMap = () => {
           />
           {filteredMarkers.map((marker, index) => (
             <Marker key={index} position={[marker.acf.latitudeMarker, marker.acf.longitudeMarker]} icon={customIcon(marker.acf.urlMarker)}>
-              <Popup>{AfficherPOIInfos(marker.acf.categorieMarker, marker.acf.nomMarker)}</Popup>
+                <Popup>{AfficherPOIInfos(marker.acf.categorieMarker, marker.acf.nomMarker)}</Popup>
             </Marker>
           ))}
         </MapContainer>
