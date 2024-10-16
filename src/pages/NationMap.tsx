@@ -129,9 +129,9 @@ const NationMap = () => {
     } else { 
         const noScene = Number(nomPOI.slice(6,7));
         
-        const sceneEvents = eventsList.map((event) => event.acf.scene_festival === noScene ? " /// Jour " + event.acf.jour_event + " : " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival : "" );    
+        const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene).map(event => " /// Jour " + event.acf.jour_event + " : " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival);    
         
-        infosScene = nomPOI + sceneEvents.join("");
+        infosScene = nomPOI + sceneEvents;
     };
     return infosScene;
   }
