@@ -1,11 +1,14 @@
 import { EventsListProps } from '../config/Context';
 import { ArtisteProps } from '../config/Context';
+import { CalendrierProps } from '../config/Context';
 import { useState, useEffect, ChangeEvent } from 'react';
 import FicheArtiste from '../components/FicheArtiste';
+
 
 type SelectFilters1Props = {
     defaultValue: number;
     onSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    options : number[];
 };
 
 type SelectFilters2Props = {
@@ -13,15 +16,25 @@ type SelectFilters2Props = {
     onSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-function SelectJour({defaultValue, onSelect}: SelectFilters1Props) {  // Afficher la liste des jours
+type SelectFilters3Props = {
+    defaultValue: string;
+    onSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    options : string[];
+};
+
+const defaultStylesList = ["Tous","Blues","Jazz","Reggae","Rock","Salsa","Zouk"];
+const defaultJoursList = [1,2,3];
+const defaultScenesList = [1,2,3,4,5];
+
+function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des jours
     return (
         <div className='font-bold italic'>
             <p className="mt-4 ml-6">Jour</p>
             <select value={defaultValue} className="my-1 mx-2 text-amber-200 bg-amber-700 rounded-lg border-2 border-amber-200" onChange={(e) => onSelect(e)}>
                 <option value={0}>Tous</option>
-                <option value={1}>Jour 1</option>
-                <option value={2}>Jour 2</option>
-                <option value={3}>Jour 3</option>
+                {options.map((jour, index) =>
+                    <option key={index} value={jour}>Jour {jour}</option>
+                )}
             </select>
         </div>
     );
@@ -32,43 +45,38 @@ function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Affi
         <div className='md:ml-10 font-bold italic'>
             <p className="mt-4 ml-3">Horaires</p>
             <select value={defaultValue} className="my-1 ml-2 mx-2 px-3 text-amber-200 bg-amber-700 rounded-lg border-2 border-amber-200" onChange={(e) => onSelect(e)}>
-                <option value={"14:00"}>14h</option>
-                <option value={"16:00"}>16h</option>
-                <option value={"18:00"}>18h</option>
-                <option value={"20:00"}>20h</option>
+                <option value={"12:00"}>12h→</option>
+                <option value={"14:00"}>14h→</option>
+                <option value={"16:00"}>16h→</option>
+                <option value={"18:00"}>18h→</option>
+                <option value={"20:00"}>20h→</option>
             </select>
         </div>
     );
 }
 
-function SelectStyle({defaultValue, onSelect}: SelectFilters2Props) {  // Afficher la liste des styles
+function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  // Afficher la liste des styles
     return (
         <div className='md:ml-10 font-bold italic'>
             <p className="mt-4 ml-7">Style</p>
             <select value={defaultValue} className="my-1 ml-2 mx-2 text-amber-200 bg-amber-700 rounded-lg border-2 border-amber-200" onChange={(e) => onSelect(e)}>
-                <option value={"Tous"}>Tous</option>
-                <option value={"Blues"}>Blues</option>
-                <option value={"Jazz"}>Jazz</option>
-                <option value={"Reggae"}>Reggae</option>
-                <option value={"Rock"}>Rock</option>
-                <option value={"Salsa"}>Salsa</option>
-                <option value={"Zouk"}>Zouk</option>
+                {options.map((style, index) =>
+                    <option key={index} value={style}>{style}</option>
+                 )}
             </select>
         </div>
     );
 }
 
-function SelectScene({defaultValue, onSelect}: SelectFilters1Props) {  // Afficher la liste des scenes
+function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des scenes
     return (
         <div className='md:ml-10 font-bold italic'>
             <p className="mt-4 ml-6">Scene</p>
             <select value={defaultValue} className="my-1 mx-2 text-amber-200 bg-amber-700 rounded-lg border-2 border-amber-200" onChange={(e) => onSelect(e)}>
                 <option value={0}>Toutes</option>
-                <option value={1}>Scene 1</option>
-                <option value={2}>Scene 2</option>
-                <option value={3}>Scene 3</option>
-                <option value={4}>Scene 4</option>
-                <option value={5}>Scene 5</option>
+                    {options.map((scene, index) =>
+                        <option key={index} value={scene}>Scene {scene}</option>
+                )}
             </select>
         </div>
     );
@@ -79,9 +87,12 @@ function Programmation() {
     const [artistesList, setArtistesList] = useState<ArtisteProps[]>([]);
     const [filteredArtistes, setFilteredArtistes] = useState<ArtisteProps[]>([]);
     const [jour, setJour] = useState(0);
-    const [horaire, setHoraire] = useState("14:00");
+    const [joursList, setJoursList] = useState(defaultJoursList);
+    const [horaire, setHoraire] = useState("12:00");
     const [style, setStyle] = useState("Tous");
+    const [stylesList, setStylesList] = useState(defaultStylesList);
     const [scene, setScene] = useState(0);
+    const [scenesList, setScenesList] = useState(defaultScenesList);
 
     useEffect(() => { //importer la programmation
         const fetchPosts = async () => {
@@ -94,7 +105,14 @@ function Programmation() {
             const trierHoraires = data.sort((a:any, b:any) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
             const trierJours = trierHoraires.sort((a:any, b:any) => a.acf.jour_event - b.acf.jour_event);
             setEventsList(trierJours);
-            
+
+            // créer la liste des options du filtre des scènes
+                //récupérer les scènes
+            const scenes = data.map((scene : any)  => scene.acf.scene_festival);
+                //supprimer les doublons et trier la liste
+            const trierScenesUniques: any = [...new Set(scenes)].sort();
+            setScenesList(trierScenesUniques);
+                        
           } catch (error: any) {
             <p>{error}</p>;
           } finally {
@@ -116,6 +134,16 @@ function Programmation() {
         }
         const data = await response.json();
         setArtistesList(data);
+
+        // créer la liste des options du filtre de styles
+            //récupérer les styles des artistes
+        const styleOptions = data.map((artiste : ArtisteProps)  => artiste.acf.style_de_lartiste);
+            //supprimer les doublons et trier la liste
+        const trierOptionsUniques: any = [...new Set(styleOptions)].sort();
+            //rajouter l'option "Tous" au début
+        trierOptionsUniques.unshift("Tous");
+        setStylesList(trierOptionsUniques);        
+
         } catch (error: any) {
         <p>{error}</p>;
         } finally {
@@ -126,6 +154,30 @@ function Programmation() {
         fetchPosts();       
     
     }, []);
+
+    useEffect(() => { //importer le calendrier
+        const fetchPosts = async () => {
+          try {
+            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc');
+            if (!response.ok) {
+              throw new Error('Erreur lors de la récupération des données');
+            }
+            const data = await response.json();
+            // créer la liste des options du filtre de jours
+                //récupérer les jours du calendrier du festival
+            const jours = data.map((jour: CalendrierProps)  => jour.acf.jour_festival);
+            setJoursList(jours);  
+
+          } catch (error: any) {
+            <p>{error}</p>;
+          } finally {
+            <p>Chargement en cours...</p>;
+          }
+          
+        };    
+        fetchPosts();             
+        
+      }, []);
 
     const handleOnSelectJour = (event: ChangeEvent<HTMLSelectElement>) => { // gérer la sélection des jours
         const jour = Number(event.target.value);        
@@ -178,16 +230,16 @@ function Programmation() {
                         {/* Définir les listes de filtres; jour, horaires, style et scene */}
                         <div className='flex justify-center'>
                             <div> 
-                            {<SelectJour defaultValue={jour} onSelect={handleOnSelectJour} />} 
+                            {<SelectJour defaultValue={jour} onSelect={handleOnSelectJour} options={joursList} />} 
                             </div>
                             <div> 
                                 {<SelectHoraire defaultValue={horaire} onSelect={handleOnSelectHoraire} />}
                             </div>
                             <div> 
-                                {<SelectStyle defaultValue={style} onSelect={handleOnSelectStyle} />}
+                                {<SelectStyle defaultValue={style} onSelect={handleOnSelectStyle} options={stylesList}/>}
                             </div>
                             <div> 
-                                {<SelectScene defaultValue={scene} onSelect={handleOnSelectScene} />}
+                                {<SelectScene defaultValue={scene} onSelect={handleOnSelectScene} options={scenesList} />}
                             </div>
                         </div>
                         <button className='mt-5 font-bold italic w-96 md:w-2/5 mx-auto' onClick={AfficherTousArtistes}>
