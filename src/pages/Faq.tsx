@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+const wpPath = 'http://nation-sound77.local/';
+
 function Faq() {
     useEffect(() => {
         window.scrollTo(0, 0);   
@@ -13,7 +15,7 @@ function Faq() {
                 <div className='bg-hero2 bg-cover bg-bottom h-40 shadow-lg shadow-orange-300'>
                     <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>FAQ</h1>
                 </div>                          
-                <iframe className="pt-3 h-[90rem] md:h-[85rem]"  src="http://nation-sound77.local/faq/" height="1000px" width="100%"></iframe>                
+                <iframe className="pt-3 h-[90rem] md:h-[85rem]"  src= {wpPath + "faq/"} height="1000px" width="100%"></iframe>                
                 
             </div>
         </main>

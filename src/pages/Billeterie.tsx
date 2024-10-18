@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+const wpPath = 'http://nation-sound77.local/';
+
 function Billeterie() {
     useEffect(() => {
         window.scrollTo(0, 0);   
@@ -13,7 +15,7 @@ function Billeterie() {
                 <div className='bg-hero2 bg-cover bg-bottom h-40 shadow-lg shadow-orange-300'>
                     <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>BILLETERIE</h1>
                 </div>                          
-                <iframe className="pt-3 h-[65rem] md:h-[60rem]"  src="http://nation-sound77.local/billeterie/" height="100vh" width="100%"></iframe>                
+                <iframe className="pt-3 h-[65rem] md:h-[60rem]" src= {wpPath + "billeterie/"} height="100vh" width="100%"></iframe>                
                 
             </div>
         </main>

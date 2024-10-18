@@ -30,7 +30,7 @@ export interface ArtisteProps {
   }  
 }
 
-// Définir la structure des markers
+// Définir la structure des markers de la carte
 export interface MarkersProps {
   acf : {
     urlMarker : string,
@@ -42,7 +42,7 @@ export interface MarkersProps {
 
 }
 
-// Définir la structure des filtres
+// Définir la structure des filtres de la carte
 export interface FiltersMarkersProps {
   id : string,
   label : string,

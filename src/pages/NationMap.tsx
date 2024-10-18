@@ -6,6 +6,8 @@ import {MarkersProps} from '../config/Context';
 import {FiltersMarkersProps} from '../config/Context';
 import { EventsListProps } from "../config/Context";
 
+const wpPath = 'http://nation-sound77.local/';
+
 const centerLat = 48.84840264440768;
 const centerLong = 2.6710615016030226;
 
@@ -66,7 +68,7 @@ const NationMap = () => {
   useEffect(() => { //importer la liste des points d'intérêts (POI)
     const fetchPosts = async () => {
         try {
-        const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50');
+        const response = await fetch( wpPath + 'wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50');
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération des données');
         }
@@ -102,7 +104,7 @@ const NationMap = () => {
   useEffect(() => { //importer la programmation
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50');
+        const response = await fetch( wpPath + 'wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50');
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }

@@ -6,6 +6,8 @@ import { ArtisteProps } from '../config/Context';
 
 const logoUrl = '/images/logo-ns.png';
 
+const wpPath = 'http://nation-sound77.local/';
+
 function Home() {
     const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
     const [actualites, setActualites] = useState<{[key: string]: EventsListProps[]}>({});
@@ -15,7 +17,7 @@ function Home() {
     useEffect(() => { //importer la programmation
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50');
+            const response = await fetch( wpPath + 'wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50');
             if (!response.ok) {
               throw new Error('Erreur lors de la récupération des données');
             }
@@ -36,7 +38,7 @@ function Home() {
     useEffect(() => { //importer le calendrier
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc');
+            const response = await fetch(wpPath + 'wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc');
             if (!response.ok) {
               throw new Error('Erreur lors de la récupération des données');
             }
@@ -56,7 +58,7 @@ function Home() {
     useEffect(() => { //importer la liste des artistes
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://nation-sound77.local/wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc');
+            const response = await fetch( wpPath + 'wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc');
             if (!response.ok) {
               throw new Error('Erreur lors de la récupération des données');
             }

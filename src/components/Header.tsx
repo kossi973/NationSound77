@@ -16,11 +16,11 @@ const Header = () => {
                 {/* Afficher le menu */}
                 <nav className='hidden md:inline-flex items-center'>
                     <ul className='flex text-red-500 font-bold text-xl' >
-                        <li className='mr-4 hover:text-2xl delay-50'><Link to={"/"}>Accueil</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-50'><Link to={"/Programmation"} >Programmation</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-50'><Link to={"/Billeterie"} >Billeterie</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-50'><Link to={"/Faq"} >FAQ</Link></li>
-                        <li className='mr-10 mb-6 hover:text-2xl delay-50'><Link to={"/NationMap"} >Carte Interactive </Link></li>
+                        <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Accueil</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Programmation"} >Programmation</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Billeterie"} >Billeterie</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Faq"} >FAQ</Link></li>
+                        <li className='mr-10 mb-6 hover:text-2xl delay-100'><Link to={"/NationMap"} >Carte Interactive </Link></li>
                     </ul>                    
                 </nav> 
 
@@ -39,11 +39,11 @@ const Header = () => {
                     <div className="z-10 shadow-md shadow-orange-300 text-yellow-200 text-lg font-bold absolute top-32 h-86 left-16 w-4/5 rounded-b-xl md:w-2/5 bg-amber-600/95 md:hidden">
                         <div>
                             <nav className='flex flex-col pl-4' onClick={() => setIsOpen(!isOpen)}>
-                                <Link to={"/"} className='my-6 hover:text-2xl delay-50'>Accueil </Link>
-                                <Link to={"/Programmation"} className='mb-6 hover:text-2xl delay-50'>Programmation</Link>
-                                <Link to={"/Billeterie"} className='mb-6 hover:text-2xl delay-50'>Billeterie </Link>
-                                <Link to={"/Faq"} className='mb-6 hover:text-2xl delay-50'>FAQ </Link>
-                                <Link to={"/NationMap"} className='mb-6 hover:text-2xl delay-50'>Carte Interactive </Link>
+                                <Link to={"/"} className='my-6 hover:text-2xl delay-100'>Accueil </Link>
+                                <Link to={"/Programmation"} className='mb-6 hover:text-2xl delay-100'>Programmation</Link>
+                                <Link to={"/Billeterie"} className='mb-6 hover:text-2xl delay-100'>Billeterie </Link>
+                                <Link to={"/Faq"} className='mb-6 hover:text-2xl delay-100'>FAQ </Link>
+                                <Link to={"/NationMap"} className='mb-6 hover:text-2xl delay-100'>Carte Interactive </Link>
                             </nav>
                         </div>                                
                     </div>}
