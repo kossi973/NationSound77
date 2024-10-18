@@ -26,6 +26,7 @@ type SelectFilters3Props = {
 const defaultStylesList = ["Tous","Blues","Jazz","Reggae","Rock","Salsa","Zouk"];
 const defaultJoursList = [1,2,3];
 const defaultScenesList = [1,2,3,4,5];
+const defaultHoraire = "00:00";
 
 function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des jours
     return (
@@ -44,13 +45,14 @@ function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  /
 function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Afficher la liste des horaires
     return (
         <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-3">Horaires</p>
+            <p className="mt-4 ml-8">Horaires</p>
             <select value={defaultValue} className="my-1 ml-2 mx-2 px-3 text-amber-200 bg-amber-700 rounded-lg border-2 border-amber-200" onChange={(e) => onSelect(e)}>
-                <option value={"12:00"}>12h→</option>
-                <option value={"14:00"}>14h→</option>
-                <option value={"16:00"}>16h→</option>
-                <option value={"18:00"}>18h→</option>
-                <option value={"20:00"}>20h→</option>
+                <option value={"00:00"}>Tous</option>
+                <option value={"14:00"}>14h→16h</option>
+                <option value={"16:00"}>16h→18h</option>
+                <option value={"18:00"}>18h→20h</option>
+                <option value={"20:00"}>20h→22h</option>
+                <option value={"22:00"}>20h→24h</option>
             </select>
         </div>
     );
@@ -89,8 +91,8 @@ function Programmation() {
     const [filteredArtistes, setFilteredArtistes] = useState<ArtisteProps[]>([]);
     const [jour, setJour] = useState(0);
     const [joursList, setJoursList] = useState(defaultJoursList);
-    const [horaire, setHoraire] = useState("12:00");
-    const [style, setStyle] = useState("Tous");
+    const [horaire, setHoraire] = useState(defaultHoraire);
+    const [style, setStyle] = useState(defaultStylesList[0]);
     const [stylesList, setStylesList] = useState(defaultStylesList);
     const [scene, setScene] = useState(0);
     const [scenesList, setScenesList] = useState(defaultScenesList);
@@ -200,24 +202,35 @@ function Programmation() {
         setScene(scene);
     };
 
+    const HoraireMax = (horaire: string) => {
+        let max = "23:59";
+        if (horaire != "00:00") {
+            const heure = (Number(horaire.slice(0,2)) + 1) % 24;
+            max = heure.toString()+ ":" + "59";
+        }        
+        return max;
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
         // Croiser deux listes distinctes pour identifier les artistes filtrés :
             // filtrer les evenements par jour, horaire et scene
-        const eventsFiltres = eventsList.filter((event) => (event.acf.jour_event === jour || jour === 0) && (event.acf.horaire_event >= horaire) && (event.acf.scene_festival === scene || scene === 0));
+        const eventsFiltres = eventsList.filter((event) => (event.acf.jour_event === jour || jour === 0) && (event.acf.horaire_event >= horaire) && (event.acf.horaire_event <= HoraireMax(horaire)) && (event.acf.scene_festival === scene || scene === 0));
             // puis récupérer la liste des artistes résultant de ce filtrage
         const artistesEvents = (eventsFiltres.map(event => event.acf.artiste_festival));
             // enfin, filtrer l'autre liste d'artistes selon le style et croiser avec la liste précédente
-        setFilteredArtistes(artistesList.filter((artiste) => (artiste.acf.style_de_lartiste === style || style === "Tous") && (artistesEvents.includes(artiste.acf.nom_de_lartiste))));      
-        
+        setFilteredArtistes(artistesList.filter((artiste) => (artiste.acf.style_de_lartiste === style || style === "Tous") && (artistesEvents.includes(artiste.acf.nom_de_lartiste))));
+
     }, [artistesList,jour,horaire,style,scene]);
 
     const AfficherTousArtistes = () => { // reset les filtres
         setJour(0);
-        setHoraire("14:00");
-        setStyle("Tous");
+        setHoraire(defaultHoraire);
+        setStyle(defaultStylesList[0]);
         setScene(0);
     };
+
+
 
     return (
         // page programmation
