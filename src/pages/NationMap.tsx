@@ -25,38 +25,14 @@ function customIcon(urlMarker: string) {
 
 // Définir les catégories de filtres
 const filtresMarkers = [
-  {id: "id1",
-   label: "infos",
-   check: true   
-  },
-  {id: "id2",
-   label: "scene",
-   check: true   
-  },
-  {id: "id3",
-   label: "secours",
-   check: true   
-  },
-  {id: "id4",
-    label: "snack",
-    check: true   
-   },
-  {id: "id5",
-   label: "shop",
-   check: true   
-  },  
-  {id: "id6",
-    label: "toilettes",
-    check: true   
-   },
-  {id: "id7",
-    label: "parking",
-    check: true   
-   },
-  {id: "id8",
-   label: "Tous",
-   check: true   
-  }
+  { id: "id1", label: "infos", check: true },
+  { id: "id2", label: "scene", check: true },
+  { id: "id3", label: "secours", check: true },
+  { id: "id4", label: "snack", check: true },
+  { id: "id5", label: "shop", check: true },
+  { id: "id6", label: "toilettes", check: true },
+  { id: "id7", label: "parking", check: true },
+  { id: "id8", label: "Tous", check: true }
 ];
 
 const NationMap = () => {
@@ -74,6 +50,7 @@ const NationMap = () => {
         }
         const data = await response.json();
         setMarkers(data);
+
         } catch (error: any) {
         <p>{error}</p>;
         } finally {
@@ -131,9 +108,9 @@ const NationMap = () => {
     } else { 
         const noScene = Number(nomPOI.slice(6,7));
         
-        const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene).map(event => " /// Jour " + event.acf.jour_event + " : " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival);    
+        const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene).map(event => " Jour " + event.acf.jour_event + " : " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival + " /// ");    
         
-        infosScene = nomPOI + sceneEvents.join('\n');
+        infosScene = nomPOI + " --------------------------------------------------------" + sceneEvents.join("\n");
     };
     return infosScene;
   }

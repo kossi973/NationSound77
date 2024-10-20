@@ -14,6 +14,27 @@ function Home() {
     const [calendrier, setCalendrier] = useState<CalendrierProps[]>([]);
     const [artistesList, setArtistesList] = useState<ArtisteProps[]>([]);
 
+    useEffect(() => { //importer le calendrier
+      const fetchPosts = async () => {
+        try {
+          const response = await fetch(wpPath + 'wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc');
+          if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des données');
+          }
+          const data = await response.json();
+          setCalendrier(data);
+          
+        } catch (error: any) {
+          <p>{error}</p>;
+        } finally {
+          <p>Chargement en cours...</p>;
+        }
+        
+      };    
+      fetchPosts();             
+      
+    }, []);
+    
     useEffect(() => { //importer la programmation
         const fetchPosts = async () => {
           try {
@@ -35,26 +56,6 @@ function Home() {
         
       }, []);
 
-    useEffect(() => { //importer le calendrier
-        const fetchPosts = async () => {
-          try {
-            const response = await fetch(wpPath + 'wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc');
-            if (!response.ok) {
-              throw new Error('Erreur lors de la récupération des données');
-            }
-            const data = await response.json();
-            setCalendrier(data);
-          } catch (error: any) {
-            <p>{error}</p>;
-          } finally {
-            <p>Chargement en cours...</p>;
-          }
-          
-        };    
-        fetchPosts();             
-        
-      }, []);
-
     useEffect(() => { //importer la liste des artistes
         const fetchPosts = async () => {
           try {
@@ -64,6 +65,7 @@ function Home() {
             }
             const data = await response.json();
             setArtistesList(data);
+
           } catch (error: any) {
             <p>{error}</p>;
           } finally {
