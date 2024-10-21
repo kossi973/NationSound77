@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-
-const wpPath = 'http://nation-sound77.local/';
+import { wpPath } from "../config/Context";
 
 function Faq() {
     useEffect(() => {

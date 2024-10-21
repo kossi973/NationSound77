@@ -2,11 +2,8 @@ import { useRef, useState, useEffect } from "react";
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import {MarkersProps} from '../config/Context';
-import {FiltersMarkersProps} from '../config/Context';
-import { EventsListProps } from "../config/Context";
-
-const wpPath = 'http://nation-sound77.local/';
+import {MarkersProps, FiltersMarkersProps, EventsListProps} from '../config/Context';
+import FetchData from '../components/FetchData';
 
 const centerLat = 48.84840264440768;
 const centerLong = 2.6710615016030226;
@@ -40,27 +37,18 @@ const NationMap = () => {
   const [markers, setMarkers] = useState<MarkersProps[]>([]);
   const [filteredMarkers, setfilteredMarkers] = useState<MarkersProps[]>([]);
   const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
- 
-  useEffect(() => { //importer la liste des points d'intérêts (POI)
-    const fetchPosts = async () => {
-        try {
-        const response = await fetch( wpPath + 'wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50');
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des données');
-        }
-        const data = await response.json();
-        setMarkers(data);
+  
+  FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList ); //importer la programmation
+  FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); //importer la liste des points d'intérêts (POI)
+   
+  useEffect(() => {
+    //Trier la liste des événements par horaires
+    const trierHoraires = eventsList.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
+    //Puis par jours
+    const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
 
-        } catch (error: any) {
-        <p>{error}</p>;
-        } finally {
-        <p>Chargement en cours...</p>;
-        }
-        
-        };    
-        fetchPosts();       
-    
-  }, []);
+    setEventsList(trierJours);
+  },[eventsList]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -77,31 +65,8 @@ const NationMap = () => {
     }
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )));
   };
-  
-  useEffect(() => { //importer la programmation
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch( wpPath + 'wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50');
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des données');
-        }
-        const data = await response.json();
-        const trierHoraires = data.sort((a:any, b:any) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
-        const trierJours = trierHoraires.sort((a:any, b:any) => a.acf.jour_event - b.acf.jour_event);
-        setEventsList(trierJours);
-        
-      } catch (error: any) {
-        <p>{error}</p>;
-      } finally {
-        <p>Chargement en cours...</p>;
-      }
-      
-    };    
-    fetchPosts();       
-    
-  }, []);
 
-  const AfficherPOIInfos = (categoriePOI: string, nomPOI: string) => {
+  const AfficherInfosPOI = (categoriePOI: string, nomPOI: string) => {
     let infosScene;
     if (categoriePOI !== "scene") {
       infosScene = nomPOI;
@@ -137,7 +102,7 @@ const NationMap = () => {
           />
           {filteredMarkers.map((marker, index) => (
             <Marker key={index} position={[marker.acf.latitudeMarker, marker.acf.longitudeMarker]} icon={customIcon(marker.acf.urlMarker)}>
-                <Popup>{AfficherPOIInfos(marker.acf.categorieMarker, marker.acf.nomMarker)}</Popup>
+                <Popup>{AfficherInfosPOI(marker.acf.categorieMarker, marker.acf.nomMarker)}</Popup>
             </Marker>
           ))}
         </MapContainer>

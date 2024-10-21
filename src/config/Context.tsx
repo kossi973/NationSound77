@@ -1,8 +1,11 @@
 
+//Définir chemin vers WordPress Headless
+export const wpPath = 'http://nation-sound77.local/';
+
 // Définir la structure du calendrier
 export interface CalendrierProps {
   acf : {
-    jour_festival : string,
+    jour_festival : number,
     date_festival : string,
   }
 
