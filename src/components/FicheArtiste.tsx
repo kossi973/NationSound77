@@ -29,7 +29,7 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
       <div className='text-right'>
           <button onClick={OuvrirFiche} className='text-cyan-200 underline font-bold'>Voir +</button>
       </div>
-      <dialog className="overflow-hidden min-h-[66rem] bg-hero2 rounded-md text-yellow-100 absolute mt-36 w-full md:w-1/3 shadow-lg shadow-orange-300" ref={dialogRef}>
+      <dialog className="overflow-hidden min-h-[75rem] bg-hero2 rounded-md text-yellow-100 absolute mt-36 w-full md:w-1/3 shadow-lg shadow-orange-300" ref={dialogRef}>
 
         <div className='h-[96rem] bg-blue-800/90 pb-12' >
             <button className='text-md mt-4 ml-4 border-2 rounded-full px-2' onClick={FermerFiche}>X</button>

@@ -53,7 +53,7 @@ function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Affi
                 <option value={"16:00"}>16h→18h</option>
                 <option value={"18:00"}>18h→20h</option>
                 <option value={"20:00"}>20h→22h</option>
-                <option value={"22:00"}>22h→24h</option>
+                <option value={"22:00"}>22h→00h</option>
             </select>
         </div>
     );
