@@ -23,14 +23,15 @@ function Home() {
         //Puis par jours
         const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
         // Grouper les events par jours  
-        const grouperJours = trierJours.reduce((acc: { [key: number]: EventsListProps[] }, event: EventsListProps) => {
+        const grouperJours = trierJours.reduce((acc: { [key: string]: EventsListProps[] }, event: EventsListProps) => {
             if (!acc[event.acf.jour_event]) {
                 acc[event.acf.jour_event] = [];
             }
             acc[event.acf.jour_event].push(event);
             return acc;
-        }, {} as { [key: number]: EventsListProps[] });
+        }, {} as { [key: string]: EventsListProps[] });
         setActualites(grouperJours);
+        
     },[eventsList]);
 
     return (
@@ -43,12 +44,12 @@ function Home() {
                 </div>
 
                 <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 rounded-lg shadow-lg shadow-orange-300'>
-                    { Object.keys(actualites).map((jour: any ) => (
+                    { Object.keys(actualites).map((jour: string ) => (
                         <div key={jour} className='mb-16'>
                             <p className='mt-2 text-xl text-center'>-- JOUR {jour} --</p>
-                            <p className='text-yellow-400 text-xl text-center'>{calendrier.map((event) => event.acf.jour_festival === jour ? FormaterDate(event.acf.date_festival) : "")}</p>
+                            <p className='text-yellow-400 text-xl text-center'>{calendrier.map((event) => event.acf.jour_festival == +jour ? FormaterDate(event.acf.date_festival) : "")}</p>
                             <hr className='my-2'></hr>
-                            <ul className='pl-16 lg:pl-64'>
+                            <ul className='pl-16 xl:pl-64'>
                                 {actualites[jour].map((event, index) => (
                                     <li key={index} className='my-4'>                                                                              
                                         <div className='flex'>

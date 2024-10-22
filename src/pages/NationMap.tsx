@@ -73,9 +73,9 @@ const NationMap = () => {
     } else { 
         const noScene = Number(nomPOI.slice(6,7));
         
-        const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene).map(event => " Jour " + event.acf.jour_event + " : " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival + " /// ");    
+        const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene).map(event => "&nbsp ► Jour " + event.acf.jour_event + " - " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival);    
         
-        infosScene = nomPOI + " --------------------------------------------------------" + sceneEvents.join("\n");
+        infosScene = nomPOI + " ---------------------------------------------------<br />" + sceneEvents.join(`<br />`);
     };
     return infosScene;
   }
@@ -102,7 +102,9 @@ const NationMap = () => {
           />
           {filteredMarkers.map((marker, index) => (
             <Marker key={index} position={[marker.acf.latitudeMarker, marker.acf.longitudeMarker]} icon={customIcon(marker.acf.urlMarker)}>
-                <Popup>{AfficherInfosPOI(marker.acf.categorieMarker, marker.acf.nomMarker)}</Popup>
+                <Popup>
+                  <div className="text-blue-900 font-bold" dangerouslySetInnerHTML={{ __html: AfficherInfosPOI(marker.acf.categorieMarker, marker.acf.nomMarker) }} />                  
+                </Popup>
             </Marker>
           ))}
         </MapContainer>
