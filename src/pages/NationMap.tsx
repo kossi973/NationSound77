@@ -15,20 +15,18 @@ function customIcon(urlMarker: string) {
     iconSize: [40, 40], // size of the icon
     iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
     popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
-    // shadowUrl: "./shadow.png",
-    // shadowSize: [28, 41] // size of the shadow
 });
 };
 
 // Définir les catégories de filtres
 const filtresMarkers = [
   { id: "id1", label: "infos", check: true },
-  { id: "id2", label: "scene", check: true },
+  { id: "id2", label: "scenes", check: true },
   { id: "id3", label: "secours", check: true },
-  { id: "id4", label: "snack", check: true },
-  { id: "id5", label: "shop", check: true },
+  { id: "id4", label: "snacks", check: true },
+  { id: "id5", label: "shops", check: true },
   { id: "id6", label: "toilettes", check: true },
-  { id: "id7", label: "parking", check: true },
+  { id: "id7", label: "parkings", check: true },
   { id: "id8", label: "Tous", check: true }
 ];
 
@@ -53,7 +51,8 @@ const NationMap = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     // Afficher les markers au démarrage
-    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )))    
+    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )))
+
   }, [markers]);
 
   // Afficher les markers filtrés
@@ -68,7 +67,7 @@ const NationMap = () => {
 
   const AfficherInfosPOI = (categoriePOI: string, nomPOI: string) => {
     let infosScene;
-    if (categoriePOI !== "scene") {
+    if (categoriePOI !== "scenes") {
       infosScene = nomPOI;
     } else { 
         const noScene = Number(nomPOI.slice(6,7));
