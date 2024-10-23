@@ -7,6 +7,7 @@ import FetchData from '../components/FetchData';
 
 const centerLat = 48.84840264440768;
 const centerLong = 2.6710615016030226;
+const redIcon = 'https://cdn-icons-png.flaticon.com/512/6638/6638791.png';
 
 // Define custom icon
 function customIcon(urlMarker: string) {
@@ -31,10 +32,11 @@ const filtresMarkers = [
 ];
 
 const NationMap = () => {
-  const mapRef = useRef(null);
+  const mapRef = useRef<L.Map>(null);
   const [markers, setMarkers] = useState<MarkersProps[]>([]);
   const [filteredMarkers, setfilteredMarkers] = useState<MarkersProps[]>([]);
   const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   
   FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList ); //importer la programmation
   FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); //importer la liste des points d'intérêts (POI)
@@ -54,6 +56,23 @@ const NationMap = () => {
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )))
 
   }, [markers]);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation([latitude, longitude]);
+          if (mapRef.current) {
+            mapRef.current.setView([latitude, longitude], 15);
+          }
+        },
+        () => {
+          console.error("Géolocalisation non disponible ou permission refusée.");
+        }
+      );
+    }
+  }, []);
 
   // Afficher les markers filtrés
   const handleOnClick = (filtre: FiltersMarkersProps) => {
@@ -99,6 +118,11 @@ const NationMap = () => {
             attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {userLocation && (
+            <Marker position={userLocation} icon={customIcon(redIcon)}>
+              <Popup>Vous êtes ici</Popup>
+            </Marker>
+          )}          
           {filteredMarkers.map((marker, index) => (
             <Marker key={index} position={[marker.acf.latitudeMarker, marker.acf.longitudeMarker]} icon={customIcon(marker.acf.urlMarker)}>
                 <Popup>
