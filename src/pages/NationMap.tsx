@@ -7,7 +7,8 @@ import FetchData from '../components/FetchData';
 
 const centerLat = 48.84840264440768;
 const centerLong = 2.6710615016030226;
-const redIcon = 'https://cdn-icons-png.flaticon.com/512/6638/6638791.png';
+const locationRedIcon = 'https://cdn-icons-png.flaticon.com/512/684/684908.png';
+// const visitorRedIcon = 'https://cdn-icons-png.flaticon.com/512/6638/6638791.png';
 
 // Define custom icon
 function customIcon(urlMarker: string) {
@@ -119,7 +120,7 @@ const NationMap = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {userLocation && (
-            <Marker position={userLocation} icon={customIcon(redIcon)}>
+            <Marker position={userLocation} icon={customIcon(locationRedIcon)}>
               <Popup>Vous êtes ici</Popup>
             </Marker>
           )}          
