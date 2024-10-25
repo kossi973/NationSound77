@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import {MarkersProps, FiltersMarkersProps, EventsListProps} from '../config/Context';
 import FetchData from '../components/FetchData';
 
+// Coordonnées du festival
 const centerLat = 48.84840264440768;
 const centerLong = 2.6710615016030226;
 const locationRedIcon = 'https://cdn-icons-png.flaticon.com/512/684/684908.png';
@@ -22,14 +23,14 @@ function customIcon(urlMarker: string) {
 
 // Définir les catégories de filtres
 const filtresMarkers = [
-  { id: "id1", label: "infos", check: true },
-  { id: "id2", label: "scenes", check: true },
-  { id: "id3", label: "secours", check: true },
-  { id: "id4", label: "snacks", check: true },
-  { id: "id5", label: "shops", check: true },
-  { id: "id6", label: "toilettes", check: true },
-  { id: "id7", label: "parkings", check: true },
-  { id: "id8", label: "Tous", check: true }
+  { id: "id1", label: "Le festival", check: true },
+  { id: "id2", label: "infos", check: true },
+  { id: "id3", label: "scenes", check: true },
+  { id: "id4", label: "secours", check: true },
+  { id: "id5", label: "snacks", check: true },
+  { id: "id6", label: "shops", check: true },
+  { id: "id7", label: "toilettes", check: true },
+  { id: "id8", label: "parkings", check: true }
 ];
 
 const NationMap = () => {
@@ -41,43 +42,49 @@ const NationMap = () => {
   
   FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList ); //importer la programmation
   FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); //importer la liste des points d'intérêts (POI)
-   
-  useEffect(() => {
-    //Trier la liste des événements par horaires
-    const trierHoraires = eventsList.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
-    //Puis par jours
-    const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
+ 
+  // Recadrer la carte
+  const recadrerCarte = (latitude: number, longitude: number, zoom: number) => {
+    if (mapRef.current) {
+      mapRef.current.setView([latitude, longitude], zoom);
+    }
+  };
 
-    setEventsList(trierJours);
-  },[eventsList]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // Afficher les markers au démarrage
-    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )))
-
-  }, [markers]);
-
-  useEffect(() => {
+  // Situer le visiteur
+  function situerVisiteur() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           setUserLocation([latitude, longitude]);
-          if (mapRef.current) {
-            mapRef.current.setView([latitude, longitude], 15);
-          }
         },
         () => {
           console.error("Géolocalisation non disponible ou permission refusée.");
         }
       );
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    //Trier la liste des événements par horaires
+    const trierHoraires = eventsList.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
+    //Puis par jours
+    const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
+    setEventsList(trierJours);
+  },[eventsList]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // Afficher les markers au démarrage   
+    setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check ))); 
+    situerVisiteur();
+  }, [markers]);
 
   // Afficher les markers filtrés
   const handleOnClick = (filtre: FiltersMarkersProps) => {
-    if (filtre.label === "Tous") {
+    if (filtre.label === "Le festival") {
+      recadrerCarte(centerLat, centerLong, 15); 
+      situerVisiteur();
       filtresMarkers.forEach(filter => filter.check = true);
     } else {
       filtresMarkers.forEach(filter => filter.check = filter.label === filtre.label);
