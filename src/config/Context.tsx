@@ -1,6 +1,7 @@
 
 //Définir chemin vers WordPress Headless
 export const wpPath = 'http://nation-sound77.local/';
+// export const wpPath = 'https://nationsound77.infinityfreeapp.com/';
 
 // Définir la structure du calendrier
 export interface CalendrierProps {
