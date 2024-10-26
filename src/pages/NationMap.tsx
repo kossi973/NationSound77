@@ -40,7 +40,7 @@ const NationMap = () => {
   const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   
-  FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList ); //importer la programmation
+  FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50&order=asc', setEventsList ); //importer la programmation
   FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); //importer la liste des points d'intérêts (POI)
  
   // Recadrer la carte
@@ -64,14 +64,6 @@ const NationMap = () => {
       );
     }
   };
-
-  useEffect(() => {
-    //Trier la liste des événements par horaires
-    const trierHoraires = eventsList.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
-    //Puis par jours
-    const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
-    setEventsList(trierJours);
-  },[eventsList]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,29 +90,37 @@ const NationMap = () => {
       infosScene = nomPOI;
     } else { 
         const noScene = Number(nomPOI.slice(6,7));
+
+        // Sélectionner les événements de la scène
+        const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene);
+        // Trier la liste des événements par horaires
+        const trierHoraires = sceneEvents.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
+        // Puis par jours
+        const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
+        // Mettre en forme le programme de la scène
+        const programmeScene = trierJours.map(event => "&nbsp ► Jour " + event.acf.jour_event + " - " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival);    
         
-        const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene).map(event => "&nbsp ► Jour " + event.acf.jour_event + " - " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival);    
-        
-        infosScene = nomPOI + " ---------------------------------------------------<br />" + sceneEvents.join(`<br />`);
+        infosScene = nomPOI + " ----------------------------------------------<br />" + programmeScene.join(`<br />`);
     };
     return infosScene;
   }
 
   return (
     <>
-      <div className="flex flex-wrap justify-between md:justify-end p-2 bg-sky-200">
+      <div className="bg-hero2 bg-cover bg-bottom flex flex-wrap justify-start md:justify-end p-2">
         {filtresMarkers.map((filtre) => (
           <button key={filtre.id} onClick={() => handleOnClick(filtre)}>
-            <p className="border border-2 bg-sky-800 text-sm md:text-lg font-bold md:font-normal text-white italic border rounded-lg p-1 md:p-2">{filtre.label}</p>
+            <p className="border border-1 bg-sky-800 text-sm md:text-lg font-bold md:font-normal text-white italic border rounded-lg p-1 m-1 md:p-2">{filtre.label}</p>
           </button>
         ))}
       </div>
+      <hr className="h-2 bg-amber-400" />
       <div>
         <MapContainer
           center={[centerLat, centerLong]}
           zoom={15}
           ref={mapRef}
-          style={{ zIndex: 5, height: "73vh", width: "100vw" }}
+          style={{ zIndex: 5, height: "70vh", width: "100vw" }}
         >
           <TileLayer
             attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
