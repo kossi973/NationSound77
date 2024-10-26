@@ -43,19 +43,21 @@ function Home() {
                     <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>FESTIVAL NATION SOUND</h1>
                 </div>
 
-                <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 rounded-lg shadow-lg shadow-orange-300'>
+                <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 border rounded-lg shadow-lg shadow-orange-300'>
                     { Object.keys(actualites).map((jour: string ) => (
                         <div key={jour} className='mb-16'>
                             <p className='mt-2 text-xl text-center'>-- JOUR {jour} --</p>
                             <p className='text-yellow-400 text-xl text-center'>{calendrier.map((event) => event.acf.jour_festival == +jour ? FormaterDate(event.acf.date_festival) : "")}</p>
                             <hr className='my-2'></hr>
-                            <ul className='pl-16 xl:pl-64'>
+                            <ul className='pl-8 xl:pl-64'>
                                 {actualites[jour].map((event, index) => (
                                     <li key={index} className='my-4'>                                                                              
                                         <div className='flex'>
                                             <img src={artistesList.find((artiste) => artiste.acf.nom_de_lartiste === event.acf.artiste_festival)?.acf.url_du_visuel || logoUrl} alt="Nation Sound" className='rounded-md w-12 h-12 lg:size-24'/>
-
-                                            <p className='pl-4 my-auto italic text-lg'>{event.acf.horaire_event.slice(0,5)} - {event.acf.event_festival} {event.acf.artiste_festival} - scene {event.acf.scene_festival}</p>
+                                            <div className='pl-4 my-auto italic text-lg'>                                                
+                                                <p>{event.acf.horaire_event.slice(0,5)} - {event.acf.event_festival} {event.acf.artiste_festival}</p>
+                                                <p className='pl-2'>--- scene {event.acf.scene_festival}</p>
+                                            </div>
                                         </div>
                                     </li>
                                 ))}
