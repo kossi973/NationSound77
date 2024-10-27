@@ -110,7 +110,7 @@ const NationMap = () => {
       <div className="bg-hero2 bg-cover bg-bottom flex flex-wrap justify-start md:justify-end p-2">
         {filtresMarkers.map((filtre) => (
           <button key={filtre.id} onClick={() => handleOnClick(filtre)}>
-            <p className="border border-1 bg-sky-800 text-sm md:text-lg font-bold md:font-normal text-white italic border rounded-lg p-1 m-1 md:p-2">{filtre.label}</p>
+            <p className="border border-1 bg-sky-800 text-sm md:text-lg font-bold md:font-normal text-white italic border rounded-lg p-1 m-1 md:p-2 active:bg-amber-500">{filtre.label}</p>
           </button>
         ))}
       </div>
