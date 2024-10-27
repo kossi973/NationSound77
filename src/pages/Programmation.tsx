@@ -198,7 +198,7 @@ function Programmation() {
                         <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>PROGRAMMATION</h1>
                     </div>
  
-                    <div className='mt-5 pb-5 px-4 bg-blue-800/80 rounded-lg flex flex-col justify-center'>
+                    <div className='mt-3 pb-5 px-4 bg-blue-800/80 border rounded-lg flex flex-col justify-center'>
                         {/* Définir les listes de filtres; jour, horaires, style et scene */}
                         <div className='flex justify-between md:justify-center'>
                             <div> 
@@ -219,7 +219,7 @@ function Programmation() {
                         </button>
                     </div>
 
-                    <div className='my-10 shadow-lg shadow-orange-300 bg-blue-800/80 rounded-lg'>
+                    <div className='my-3 shadow-lg shadow-orange-300 bg-blue-800/80 border rounded-lg'>
                         <p className='pt-2 flex justify-center font-bold italic text-2xl mb-4 pb-2 border-b border-b-yellow-600'>Les artistes du festival</p>
                         <ul className='px-10 flex flex-wrap justify-center'>
                             {filteredArtistes.map((artiste, index) => (
