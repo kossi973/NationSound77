@@ -114,6 +114,12 @@ function Programmation() {
         //supprimer les doublons et trier la liste
         const trierScenesUniques: any = [...new Set(scenes)].sort();
         setScenesList(trierScenesUniques);
+        
+        //Trier la liste des événements par horaires
+        const trierHoraires = eventsList.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
+        //Puis par jours
+        const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
+        setEventsList(trierJours);
 
     }, [eventsList]);
     
