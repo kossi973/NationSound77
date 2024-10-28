@@ -73,11 +73,11 @@ function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  
 function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des scenes
     return (
         <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-4">Scene</p>
+            <p className="mt-4 ml-4">Scène</p>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 <option value={0}>Toutes</option>
                     {options.map((scene, index) =>
-                        <option key={index} value={scene}>Scene {scene}</option>
+                        <option key={index} value={scene}>Scène {scene}</option>
                 )}
             </select>
         </div>

@@ -57,7 +57,7 @@ function Home() {
                                             <div className='pl-4 my-auto italic text-lg'>                                                
                                                 <p>{event.acf.horaire_event.slice(0,5)} - {event.acf.event_festival} {event.acf.artiste_festival}</p>
                                                 <span className='pl-2 text-base'>» </span>
-                                                <span>scene {event.acf.scene_festival}</span>
+                                                <span>scène {event.acf.scene_festival}</span>
                                             </div>
                                         </div>
                                     </li>

@@ -67,6 +67,11 @@ const NationMap = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Reset des filtres
+    filtresMarkers.forEach(filter => filter.check = true);
+  }, []);
+
+  useEffect(() => {
     // Afficher les markers au démarrage   
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check ))); 
     situerVisiteur();
