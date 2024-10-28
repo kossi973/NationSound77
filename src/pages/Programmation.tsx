@@ -43,7 +43,7 @@ function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  /
 function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Afficher la liste des horaires
     return (
         <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-3">Horaires</p>
+            <p className="mt-4 ml-4">Horaires</p>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 <option value={"00:00"}>Tous</option>
                 <option value={"12:00"}>12h→14h</option>
@@ -60,7 +60,7 @@ function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Affi
 function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  // Afficher la liste des styles
     return (
         <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-5">Style</p>
+            <p className="mt-4 ml-4">Style</p>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 {options.map((style, index) =>
                     <option key={index} value={style}>{style}</option>
@@ -73,7 +73,7 @@ function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  
 function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des scenes
     return (
         <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-5">Scene</p>
+            <p className="mt-4 ml-4">Scene</p>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 <option value={0}>Toutes</option>
                     {options.map((scene, index) =>
@@ -219,7 +219,7 @@ function Programmation() {
                         </button>
                     </div>
 
-                    <div className='my-3 shadow-lg shadow-orange-300 bg-blue-800/80 border rounded-lg'>
+                    <div className='min-h-screen my-3 shadow-lg shadow-orange-300 bg-blue-800/80 border rounded-lg'>
                         <p className='pt-2 flex justify-center font-bold italic text-2xl mb-4 pb-2 border-b border-b-yellow-600'>Les artistes du festival</p>
                         <ul className='px-10 flex flex-wrap justify-center'>
                             {filteredArtistes.map((artiste, index) => (

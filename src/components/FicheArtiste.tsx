@@ -47,7 +47,7 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
                         <li className="mb-2" key={index}>
                             <div className="ml-2" >
                                 <p className='pl-4'>Jour {event.acf.jour_event} - {event.acf.horaire_event.slice(0,5)}</p>
-                                <p className='pl-4'>{event.acf.event_festival} sur la scène {event.acf.scene_festival}</p>
+                                <p className='pl-4'>» {event.acf.event_festival} sur la scène {event.acf.scene_festival}</p>
                             </div>
                             <hr className="mt-2 mb-4"/>
                         </li>

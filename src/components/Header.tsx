@@ -26,17 +26,17 @@ const Header = () => {
 
                 <div className='md:hidden'>
                     <button onClick={() => setIsOpen(!isOpen)}>                    
-                        {
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="red" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+                        {!isOpen && <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="red" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
                             <path d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
                         }
+                        {isOpen && <svg width="36px" height="36px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>}
                     </button>
                 </div>
                 
                 {/* Afficher le menu smartphone */}
                 {isOpen &&
-                    <div className="z-10 shadow-md shadow-orange-300 text-yellow-200 text-lg font-bold absolute top-32 h-86 left-16 w-4/5 rounded-b-xl md:w-2/5 bg-amber-600/95 md:hidden">
+                    <div className="right-10 z-10 shadow-md shadow-orange-300 text-yellow-200 text-lg font-bold absolute top-32 h-86 w-4/5 rounded-b-xl bg-amber-600/95 md:hidden">
                         <div>
                             <nav className='flex flex-col pl-4' onClick={() => setIsOpen(!isOpen)}>
                                 <Link to={"/"} className='my-6 hover:text-2xl delay-100'>Accueil </Link>
