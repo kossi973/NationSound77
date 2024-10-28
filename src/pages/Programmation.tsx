@@ -21,17 +21,16 @@ type SelectFilters3Props = {
     options : string[];
 };
 
-const defaultStylesList = ["Tous","Blues","Jazz","Reggae","Rock","Salsa","Zouk"];
+const defaultStylesList = ["Styles","Blues","Jazz","Reggae","Rock","Salsa","Zouk"];
 const defaultJoursList = [1,2,3];
 const defaultScenesList = [1,2,3,4,5];
 const defaultHoraire = "00:00";
 
 function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des jours
     return (
-        <div className='font-bold italic'>
-            <p className="mt-4 ml-4">Jour</p>
+        <div className='font-bold'>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
-                <option value={0}>Tous</option>
+                <option value={0}>Jours</option>
                 {options.map((jour, index) =>
                     <option key={index} value={jour}>Jour {jour}</option>
                 )}
@@ -42,10 +41,9 @@ function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  /
 
 function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Afficher la liste des horaires
     return (
-        <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-4">Horaires</p>
+        <div className='md:ml-10 font-bold'>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
-                <option value={"00:00"}>Tous</option>
+                <option value={"00:00"}>Horaires</option>
                 <option value={"12:00"}>12h→14h</option>
                 <option value={"14:00"}>14h→16h</option>
                 <option value={"16:00"}>16h→18h</option>
@@ -59,8 +57,7 @@ function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Affi
 
 function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  // Afficher la liste des styles
     return (
-        <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-4">Style</p>
+        <div className='md:ml-10 font-bold'>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 {options.map((style, index) =>
                     <option key={index} value={style}>{style}</option>
@@ -72,10 +69,9 @@ function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  
 
 function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des scenes
     return (
-        <div className='md:ml-10 font-bold italic'>
-            <p className="mt-4 ml-4">Scène</p>
+        <div className='md:ml-10 font-bold'>
             <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
-                <option value={0}>Toutes</option>
+                <option value={0}>Scènes</option>
                     {options.map((scene, index) =>
                         <option key={index} value={scene}>Scène {scene}</option>
                 )}
@@ -128,8 +124,8 @@ function Programmation() {
         const styleOptions = artistesList.map((artiste : ArtisteProps)  => artiste.acf.style_de_lartiste);
         //supprimer les doublons et trier la liste
         const trierOptionsUniques: any = [...new Set(styleOptions)].sort();
-        //rajouter l'option "Tous" au début
-        trierOptionsUniques.unshift("Tous");
+        //rajouter l'option "Styles" au début
+        trierOptionsUniques.unshift(defaultStylesList[0]);
         setStylesList(trierOptionsUniques);             
     
     }, [artistesList]);
@@ -141,7 +137,7 @@ function Programmation() {
             // puis récupérer la liste des artistes résultant de ce filtrage
         const artistesEvents = (eventsFiltres.map(event => event.acf.artiste_festival));
             // enfin, filtrer l'autre liste d'artistes selon le style et croiser avec la liste précédente
-        setFilteredArtistes(artistesList.filter((artiste) => (artiste.acf.style_de_lartiste === style || style === "Tous") && (artistesEvents.includes(artiste.acf.nom_de_lartiste))));
+        setFilteredArtistes(artistesList.filter((artiste) => (artiste.acf.style_de_lartiste === style || style === defaultStylesList[0]) && (artistesEvents.includes(artiste.acf.nom_de_lartiste))));
 
     }, [jour,horaire,style,scene]);
 
@@ -198,7 +194,7 @@ function Programmation() {
                         <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>PROGRAMMATION</h1>
                     </div>
  
-                    <div className='mt-3 pb-5 px-4 bg-blue-800/80 border rounded-lg flex flex-col justify-center'>
+                    <div className='mt-3 py-3 px-4 bg-blue-800/80 border rounded-lg flex flex-col justify-center'>
                         {/* Définir les listes de filtres; jour, horaires, style et scene */}
                         <div className='flex justify-between md:justify-center'>
                             <div> 
@@ -214,7 +210,7 @@ function Programmation() {
                                 {<SelectScene defaultValue={scene} onSelect={handleOnSelectScene} options={scenesList} />}
                             </div>
                         </div>
-                        <button className='mt-5 font-bold italic w-full md:w-2/5 md:mx-auto' onClick={AfficherTousArtistes}>
+                        <button className='mt-2 font-bold w-full md:w-2/5 md:mx-auto' onClick={AfficherTousArtistes}>
                             <p className="text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:shadow-xl active:bg-amber-500">Tous les artistes</p>                            
                         </button>
                     </div>
