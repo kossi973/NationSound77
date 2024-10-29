@@ -29,9 +29,9 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
       <div className='text-right'>
           <button onClick={OuvrirFiche} className='text-cyan-200 underline font-bold active:text-amber-500 pb-1 pr-1'>Voir +</button>
       </div>
-      <dialog className="overflow-hidden min-h-[75rem] bg-hero2 rounded-md text-yellow-100 absolute mt-36 w-full md:w-1/3 shadow-lg shadow-orange-300" ref={dialogRef}>
+      <dialog className="overflow-visible bg-hero2 rounded-md text-yellow-100 absolute mt-36 w-full md:w-1/3 shadow-lg shadow-orange-300" ref={dialogRef}>
 
-        <div className='h-[96rem] bg-blue-800/90 pb-12' >
+        <div className='bg-blue-800/90' >
             <button className='text-md mt-4 ml-4 border-2 rounded-full px-2 active:text-amber-500' onClick={FermerFiche}>X</button>
             <h1 className='grid justify-center text-3xl mb-8 border-b border-b-yellow-600 pb-4 font-bold'>La story de l'artiste</h1>
             <div className='text-xl bg-blue-800 mx-10 shadow-lg shadow-cyan-300'>   
@@ -47,7 +47,7 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
                         <li className="mb-2" key={index}>
                             <div className="ml-2" >
                                 <p className='pl-4'>Jour {event.acf.jour_event} - {event.acf.horaire_event.slice(0,5)}</p>
-                                <p className='pl-4'>» {event.acf.event_festival} sur la scène {event.acf.scene_festival}</p>
+                                <p className='pl-4 text-lg'>» {event.acf.event_festival} sur la scène {event.acf.scene_festival}</p>
                             </div>
                             <hr className="mt-2 mb-4"/>
                         </li>
@@ -55,10 +55,10 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
                       <p>No events available</p>
                     )}                    
                 </ul>
-            </div>          
-        </div>
-        <div className='min-h-screen h-96'>
-
+            </div>
+            <div  className='flex justify-end my-4 mr-4'>              
+              <button className='text-md active:text-amber-500' onClick={FermerFiche}>Fermer X</button> 
+            </div>         
         </div>
       </dialog>
     </>
