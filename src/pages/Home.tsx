@@ -40,7 +40,7 @@ function Home() {
             <div className='min-h-screen bg-amber-600/90 flex contain-fluid overflow-hidden grid text-yellow-100'>             
                 {/* titre */}
                 <div className='bg-hero2 bg-cover bg-bottom h-40 shadow-lg shadow-orange-300'>
-                    <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>FESTIVAL NATION SOUND</h1>
+                    <h1 className='mt-12 h-auto py-4 text-3xl md:text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>FESTIVAL NATION SOUND</h1>
                 </div>
 
                 <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 border rounded-lg shadow-lg shadow-orange-300'>
