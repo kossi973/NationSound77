@@ -9,9 +9,9 @@ const Header = () => {
 
     return (
         <div>
-            <header className="container-fluid h-32 w-full bg-amber-400 mx-auto flex justify-between items-center px-10">
+            <header className="container-fluid h-24 md:h-32 w-full bg-amber-400 mx-auto flex justify-between items-center px-10">
                 <div>                    
-                    <Link to={"/"} className='my-6 active:text-2xl' onClick={() => setIsOpen(false)}><img className="h-24 rounded-full" src={logoUrl} alt="logo-ns" /></Link>
+                    <Link to={"/"} className='my-6 active:text-2xl' onClick={() => setIsOpen(false)}><img className="h-16 md:h-24 rounded-full" src={logoUrl} alt="logo-ns" /></Link>
                 </div>
                 {/* Afficher le menu */}
                 <nav className='hidden md:inline-flex items-center'>
@@ -36,7 +36,7 @@ const Header = () => {
                 
                 {/* Afficher le menu smartphone */}
                 {isOpen &&
-                    <div className="right-10 z-10 shadow-md shadow-orange-300 text-yellow-200 text-lg font-bold absolute top-32 h-86 w-4/5 rounded-b-xl bg-amber-600/95 md:hidden">
+                    <div className="right-10 z-10 shadow-md shadow-orange-300 text-yellow-200 text-lg font-bold absolute top-24 h-86 w-4/5 rounded-b-xl bg-amber-600/95 md:hidden">
                         <div>
                             <nav className='flex flex-col pl-4' onClick={() => setIsOpen(!isOpen)}>
                                 <Link to={"/"} className='my-6 hover:text-2xl delay-100'>Accueil </Link>

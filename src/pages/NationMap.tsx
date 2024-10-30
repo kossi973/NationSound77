@@ -1,9 +1,17 @@
 import { useRef, useState, useEffect } from "react";
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import L from "leaflet";
+import 'leaflet-routing-machine';
 import "leaflet/dist/leaflet.css";
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import {MarkersProps, FiltersMarkersProps, EventsListProps} from '../config/Context';
 import FetchData from '../components/FetchData';
+
+declare module 'leaflet' {
+  namespace Routing {
+    function control(options: any): any;
+  }
+}
 
 // Coordonnées du festival
 const centerLat = 48.84840264440768;
@@ -39,7 +47,9 @@ const NationMap = () => {
   const [filteredMarkers, setfilteredMarkers] = useState<MarkersProps[]>([]);
   const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
-  
+  const [isOpen, setIsOpen] = useState(false);
+  const [control, setControl] = useState(null);
+
   FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50&order=asc', setEventsList ); //importer la programmation
   FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); //importer la liste des points d'intérêts (POI)
  
@@ -51,18 +61,40 @@ const NationMap = () => {
   };
 
   // Situer le visiteur
-  function situerVisiteur() {
+  function SituerVisiteur() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           setUserLocation([latitude, longitude]);
-        },
-        () => {
-          console.error("Géolocalisation non disponible ou permission refusée.");
         }
       );
     }
+  };
+
+  function AfficherItineraire(afficher: boolean) {
+    const map = mapRef.current;
+    
+    if (map && userLocation && afficher) {
+       const newControl = L.Routing.control({
+        waypoints: [
+          L.latLng(userLocation[0], userLocation[1]), // Position du visiteur
+          L.latLng(centerLat, centerLong) // Position du festival
+        ],
+        routeWhileDragging: true
+      }).addTo(map);
+      setControl(newControl);
+      
+      return () => {
+        if (map && control) {          
+          map.removeControl(control);
+          setControl(null);
+        }
+      };
+    } else if (map && control && !afficher) { // Effacer l'itinéraire manuellement              
+        map.removeControl(control);
+        setControl(null);
+    };
   };
 
   useEffect(() => {
@@ -72,16 +104,16 @@ const NationMap = () => {
   }, []);
 
   useEffect(() => {
-    // Afficher les markers au démarrage   
+    // Afficher les markers 
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check ))); 
-    situerVisiteur();
+    SituerVisiteur();
   }, [markers]);
 
   // Afficher les markers filtrés
   const handleOnClick = (filtre: FiltersMarkersProps) => {
     if (filtre.label === "Le festival") {
       recadrerCarte(centerLat, centerLong, 15); 
-      situerVisiteur();
+      SituerVisiteur();
       filtresMarkers.forEach(filter => filter.check = true);
     } else {
       filtresMarkers.forEach(filter => filter.check = filter.label === filtre.label);
@@ -118,6 +150,9 @@ const NationMap = () => {
             <p className="border border-1 bg-sky-800 text-sm md:text-lg font-bold md:font-normal text-white italic border rounded-lg p-1 m-1 md:p-2 active:bg-amber-500">{filtre.label}</p>
           </button>
         ))}
+        <button className="italic px-2 md:p-2 text-sky-900 font-bold bg-amber-200 rounded-lg m-2 border-2 border-cyan-800 active:bg-amber-500" onClick={() => {setIsOpen(!isOpen); AfficherItineraire(!isOpen);}}>
+          <p>Itinéraire</p>
+        </button>
       </div>
       <hr className="h-2 bg-amber-400" />
       <div>
