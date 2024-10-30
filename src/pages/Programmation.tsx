@@ -3,6 +3,7 @@ import { CalendrierProps, EventsListProps, ArtisteProps } from '../config/Contex
 import { useState, useEffect, ChangeEvent } from 'react';
 import FicheArtiste from '../components/FicheArtiste';
 import FetchData from '../components/FetchData';
+import AfficherTitre from '../components/AfficherTitre';
 
 type SelectFilters1Props = {
     defaultValue: number;
@@ -29,7 +30,7 @@ const defaultHoraire = "00:00";
 function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des jours
     return (
         <div className='font-bold'>
-            <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
+            <select value={defaultValue} className="text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 <option value={0}>Jours</option>
                 {options.map((jour, index) =>
                     <option key={index} value={jour}>Jour {jour}</option>
@@ -42,7 +43,7 @@ function SelectJour({defaultValue, onSelect, options}: SelectFilters1Props) {  /
 function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Afficher la liste des horaires
     return (
         <div className='md:ml-10 font-bold'>
-            <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
+            <select value={defaultValue} className="text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 <option value={"00:00"}>Horaires</option>
                 <option value={"12:00"}>12h→14h</option>
                 <option value={"14:00"}>14h→16h</option>
@@ -58,7 +59,7 @@ function SelectHoraire({defaultValue, onSelect}: SelectFilters2Props) {  // Affi
 function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  // Afficher la liste des styles
     return (
         <div className='md:ml-10 font-bold'>
-            <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
+            <select value={defaultValue} className="text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 {options.map((style, index) =>
                     <option key={index} value={style}>{style}</option>
                  )}
@@ -70,7 +71,7 @@ function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  
 function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des scenes
     return (
         <div className='md:ml-10 font-bold'>
-            <select value={defaultValue} className="my-1 text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
+            <select value={defaultValue} className="text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
                 <option value={0}>Scènes</option>
                     {options.map((scene, index) =>
                         <option key={index} value={scene}>Scène {scene}</option>
@@ -190,15 +191,12 @@ function Programmation() {
         <main className='min-h-screen bg-hero'>
             <div className='min-h-screen bg-amber-600/90 '>
                 <div className='bg-amber-600/30 flex contain-fluid overflow-hidden grid text-yellow-100'>
-                    <div className='bg-hero2 bg-cover bg-bottom h-40 shadow-lg shadow-orange-300'>
-                        <h1 className='mt-12 h-auto py-4 text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>PROGRAMMATION</h1>
-                    </div>
- 
+                    <AfficherTitre titre="PROGRAMMATION" /> 
                     <div className='mt-3 py-3 px-4 bg-blue-800/80 border rounded-lg flex flex-col justify-center'>
                         {/* Définir les listes de filtres; jour, horaires, style et scene */}
                         <div className='flex justify-between md:justify-center'>
                             <div> 
-                            {<SelectJour defaultValue={jour} onSelect={handleOnSelectJour} options={joursList} />} 
+                                {<SelectJour defaultValue={jour} onSelect={handleOnSelectJour} options={joursList} />} 
                             </div>
                             <div> 
                                 {<SelectHoraire defaultValue={horaire} onSelect={handleOnSelectHoraire} />}
@@ -210,7 +208,7 @@ function Programmation() {
                                 {<SelectScene defaultValue={scene} onSelect={handleOnSelectScene} options={scenesList} />}
                             </div>
                         </div>
-                        <button className='mt-2 font-bold w-full md:w-2/5 md:mx-auto' onClick={AfficherTousArtistes}>
+                        <button className='mt-3 font-bold w-full md:w-1/5 md:mx-auto' onClick={AfficherTousArtistes}>
                             <p className="text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:shadow-xl active:bg-amber-500">Tous les artistes</p>                            
                         </button>
                     </div>

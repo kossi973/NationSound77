@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { CalendrierProps, EventsListProps, ArtisteProps } from '../config/Context';
 import FetchData from '../components/FetchData';
 import FormaterDate from '../components/FormaterDate';
+import AfficherTitre from '../components/AfficherTitre';
 
 const logoUrl = '/images/logo-ns.png';
 
@@ -37,12 +38,8 @@ function Home() {
     return (
         // page principale SOUND NATION
         <main className='min-h-screen bg-hero'>
-            <div className='min-h-screen bg-amber-600/90 flex contain-fluid overflow-hidden grid text-yellow-100'>             
-                {/* titre */}
-                <div className='bg-hero2 bg-cover bg-bottom h-40 shadow-lg shadow-orange-300'>
-                    <h1 className='mt-12 h-auto py-4 text-3xl md:text-4xl font-bold text-yellow-200 text-center bg-orange-600/80'>FESTIVAL NATION SOUND</h1>
-                </div>
-
+            <div className='min-h-screen bg-amber-600/90 flex contain-fluid overflow-hidden grid text-yellow-100'>
+                <AfficherTitre titre="FESTIVAL NATION SOUND" />
                 <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 border rounded-lg shadow-lg shadow-orange-300'>
                     { Object.keys(actualites).map((jour: string ) => (
                         <div key={jour} className='mb-16'>
