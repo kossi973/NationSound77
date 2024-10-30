@@ -81,10 +81,22 @@ const NationMap = () => {
           L.latLng(userLocation[0], userLocation[1]), // Position du visiteur
           L.latLng(centerLat, centerLong) // Position du festival
         ],
-        routeWhileDragging: true
+        routeWhileDragging: true,
+        language: 'fr',
+        showAlternatives: true,
+        numberOfAlternatives: 3,
+        altLineOptions: 
+          { styles: [ 
+            { color: 'black', opacity: 0.15, weight: 9 },
+            { color: 'white', opacity: 0.8, weight: 6 },
+            { color: 'blue', opacity: 0.5, weight: 2 } 
+           ]
+          },
+        createMarker: () => { return null; }
+
       }).addTo(map);
       setControl(newControl);
-      
+            
       return () => {
         if (map && control) {          
           map.removeControl(control);
