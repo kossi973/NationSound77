@@ -12,7 +12,7 @@ function MentionsLegales() {
         <main className='min-h-screen bg-hero'>
             <div className='min-h-screen bg-amber-800/90 flex contain-fluid overflow-hidden grid text-yellow-100'>
                 <AfficherTitre titre="MENTIONS LEGALES" />
-                <iframe className="pt-3 h-[60rem] md:h-[50rem]" src= {wpPath + "mentions-legales/"} height="100vh" width="100%"></iframe>
+                <iframe className="pt-3 h-[90rem]" src= {wpPath + "mentions-legales/"} height="100vh" width="100%"></iframe>
             </div>
         </main>
     );

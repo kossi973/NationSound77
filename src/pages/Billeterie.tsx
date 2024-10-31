@@ -12,7 +12,7 @@ function Billeterie() {
         <main className='min-h-screen bg-hero'>
             <div className='min-h-screen bg-amber-800/90 flex grid text-yellow-100'>
                 <AfficherTitre titre="BILLETERIE" />
-                <iframe className="pt-3 h-[65rem]" src= {wpPath + "billeterie/"} height="100vh" width="100%"></iframe>                
+                <iframe className="pt-3 h-[90rem]" src= {wpPath + "billeterie/"} height="100vh" width="100%"></iframe>                
                 
             </div>
         </main>

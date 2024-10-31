@@ -214,7 +214,7 @@ function Programmation() {
                     </div>
 
                     <div className='min-h-screen my-3 shadow-lg shadow-orange-300 bg-blue-800/80 border rounded-lg'>
-                        <p className='pt-2 flex justify-center font-bold italic text-2xl mb-4 pb-2 border-b border-b-yellow-600'>Les artistes du festival</p>
+                        <p className='pt-2 flex justify-center font-bold italic text-2xl mb-4 pb-2 border-b'>Les artistes du festival</p>
                         <ul className='px-10 flex flex-wrap justify-center'>
                             {filteredArtistes.map((artiste, index) => (
                                 <li key={index} className='w-40 md:w-64 rounded text-white italic mb-10 md:mb-32 mx-5 bg-yellow-700/20 shadow-lg shadow-cyan-300'>
