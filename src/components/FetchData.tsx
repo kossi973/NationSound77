@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { wpPath } from "../config/Context";
 
+// Composant pour récupérer les données de l'API REST de Wordpress
 const FetchData = (postsUrl: string, setData: any) => {
 
   useEffect(() => {

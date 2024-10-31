@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 const logoUrl = '/images/logo-ns.png';
 
-// Afficher le header 
+// Afficher le header: afficher le logo de retour vers la page d'accueil
+// Afficher les menus smartphone et desktop
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -13,16 +14,6 @@ const Header = () => {
                 <div>                    
                     <Link to={"/"} className='my-6 active:text-2xl' onClick={() => setIsOpen(false)}><img className="h-20 md:h-24 rounded-full" src={logoUrl} alt="logo-ns" /></Link>
                 </div>
-                {/* Afficher le menu */}
-                <nav className='hidden md:inline-flex items-center'>
-                    <ul className='flex text-red-500 font-bold text-xl' >
-                        <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Accueil</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Programmation"} >Programmation</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Billeterie"} >Billeterie</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Faq"} >FAQ</Link></li>
-                        <li className='mr-10 mb-6 hover:text-2xl delay-100'><Link to={"/NationMap"} >Carte Interactive </Link></li>
-                    </ul>                    
-                </nav> 
 
                 <div className='md:hidden'>
                     <button onClick={() => setIsOpen(!isOpen)}>                    
@@ -47,6 +38,17 @@ const Header = () => {
                             </nav>
                         </div>                                
                     </div>}
+                    
+                {/* Afficher le menu desktop*/}
+                <nav className='hidden md:inline-flex items-center'>
+                    <ul className='flex text-red-500 font-bold text-xl' >
+                        <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Accueil</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Programmation"} >Programmation</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Billeterie"} >Billeterie</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Faq"} >FAQ</Link></li>
+                        <li className='mr-10 mb-6 hover:text-2xl delay-100'><Link to={"/NationMap"} >Carte Interactive </Link></li>
+                    </ul>                    
+                </nav> 
             </header>
         </div>
     )

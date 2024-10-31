@@ -11,7 +11,7 @@ import Faq from "./pages/Faq"
 import Billeterie from "./pages/Billeterie"
 
 function App() {
-  //Structurer les pages de l'application
+  //Structurer l'application
   return (
     <>
           <Header />

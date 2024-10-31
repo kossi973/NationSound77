@@ -5,7 +5,7 @@ const logoInsta = '/images/logo-instagram.jpeg'
 const logoTwitter = '/images/logo-twitter.png'
 const logoYT = '/images/logo-youtube.png'
 
-// Afficher le footer
+// Afficher le footer : afficher les liens vers les pages Contacts, Partenaires, Mentions légales et réseaux sociaux
 function Footer() {
     return (
         <footer className="md:h-32 w-full container-fluid overflow-hidden bg-amber-400">

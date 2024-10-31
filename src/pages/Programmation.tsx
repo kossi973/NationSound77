@@ -1,4 +1,3 @@
-
 import { CalendrierProps, EventsListProps, ArtisteProps } from '../config/Context';
 import { useState, useEffect, ChangeEvent } from 'react';
 import FicheArtiste from '../components/FicheArtiste';
@@ -22,6 +21,7 @@ type SelectFilters3Props = {
     options : string[];
 };
 
+// Initialiser les valeurs de filtres par défaut
 const defaultStylesList = ["Styles","Blues","Jazz","Reggae","Rock","Salsa","Zouk"];
 const defaultJoursList = [1,2,3];
 const defaultScenesList = [1,2,3,4,5];
@@ -68,7 +68,7 @@ function SelectStyle({defaultValue, onSelect, options}: SelectFilters3Props) {  
     );
 }
 
-function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des scenes
+function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  // Afficher la liste des scènes
     return (
         <div className='md:ml-10 font-bold'>
             <select value={defaultValue} className="text-amber-200 bg-amber-700 rounded-lg border border-amber-200 active:bg-amber-500" onChange={(e) => onSelect(e)}>
@@ -81,6 +81,7 @@ function SelectScene({defaultValue, onSelect, options}: SelectFilters1Props) {  
     );
 }
 
+// Afficher la programmation: liste des artistes du festival avec leur fiche détaillée, filtrée par jours, horaires, styles et scènes
 function Programmation() {
     const [calendrier, setCalendrier] = useState<CalendrierProps[]>([]);
     const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
@@ -94,27 +95,25 @@ function Programmation() {
     const [scene, setScene] = useState(0);
     const [scenesList, setScenesList] = useState(defaultScenesList);
 
-    FetchData('wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc', setCalendrier );
-    FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList );
-    FetchData('wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc', setArtistesList );
+    FetchData('wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc', setCalendrier ); // Récupérer le calendrier du festival
+    FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList ); // Récupérer le programme du festival
+    FetchData('wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc', setArtistesList ); // Récupérer la liste des artistes programmés
 
-    useEffect(() => { // créer la liste des options du filtre de jours
-        //récupérer les jours du calendrier du festival
+    useEffect(() => { // créer la liste des options du filtre de jours à partir du calendrier du festival
         const jours = calendrier.map((jour: CalendrierProps)  => jour.acf.jour_festival);
         setJoursList(jours);             
         
       }, [calendrier]);
 
-    useEffect(() => { // créer la liste des options du filtre des scènes            
+    useEffect(() => { // créer la liste des options du filtre des scènes à partir du programme        
         //récupérer les scènes
         const scenes = eventsList.map((scene: EventsListProps)  => scene.acf.scene_festival);
         //supprimer les doublons et trier la liste
         const trierScenesUniques: any = [...new Set(scenes)].sort();
         setScenesList(trierScenesUniques);
         
-        //Trier la liste des événements par horaires
+        //Trier la liste des événements par horaires puis par jours (pour affichage fiche détaillée)
         const trierHoraires = eventsList.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
-        //Puis par jours
         const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
         setEventsList(trierJours);
 
@@ -131,13 +130,22 @@ function Programmation() {
     
     }, [artistesList]);
 
+    const HoraireMax = (horaire: string) => { // Ajouter 1h59 à l'horaire
+        let max = "23:59";
+        if (horaire != "00:00") {
+            const heure = (Number(horaire.slice(0,2)) + 1) % 24;
+            max = heure.toString() + ":" + "59";
+        }        
+        return max;
+    };
+
     useEffect(() => {
         // Croiser deux listes distinctes pour identifier les artistes filtrés :
-            // filtrer les evenements par jour, horaire et scene
+            // filtrer le programme par jour, horaire et scene
         const eventsFiltres = eventsList.filter((event) => (event.acf.jour_event === jour || jour === 0) && (event.acf.horaire_event >= horaire) && (event.acf.horaire_event <= HoraireMax(horaire)) && (event.acf.scene_festival === scene || scene === 0));
             // puis récupérer la liste des artistes résultant de ce filtrage
         const artistesEvents = (eventsFiltres.map(event => event.acf.artiste_festival));
-            // enfin, filtrer l'autre liste d'artistes selon le style et croiser avec la liste précédente
+            // enfin, filtrer la liste des artistes programmés selon le style et croiser avec la liste précédente
         setFilteredArtistes(artistesList.filter((artiste) => (artiste.acf.style_de_lartiste === style || style === defaultStylesList[0]) && (artistesEvents.includes(artiste.acf.nom_de_lartiste))));
 
     }, [jour,horaire,style,scene]);
@@ -169,17 +177,7 @@ function Programmation() {
         setScene(scene);
     };
 
-    const HoraireMax = (horaire: string) => {
-        let max = "23:59";
-        if (horaire != "00:00") {
-            const heure = (Number(horaire.slice(0,2)) + 1) % 24;
-            max = heure.toString()+ ":" + "59";
-        }        
-        return max;
-    };
-
-
-    const AfficherTousArtistes = () => { // reset des filtres
+    const AfficherTousArtistes = () => { // reset des filtres aux valeurs par défaut pour afficher toute la programmation
         setJour(0);
         setHoraire(defaultHoraire);
         setStyle(defaultStylesList[0]);
@@ -187,13 +185,13 @@ function Programmation() {
     };
 
     return (
-        // page programmation
+        // page programmation: afficher le bloc de filtres et la liste des artistes avec le lien vers la fiche détaillée
         <main className='min-h-screen bg-hero'>
             <div className='min-h-screen bg-amber-600/90 '>
                 <div className='bg-amber-600/30 flex contain-fluid overflow-hidden grid text-yellow-100'>
                     <AfficherTitre titre="PROGRAMMATION" /> 
                     <div className='mt-3 py-3 px-4 bg-blue-800/80 border rounded-lg flex flex-col justify-center'>
-                        {/* Définir les listes de filtres; jour, horaires, style et scene */}
+                        {/* Définir les listes de filtres; jours, horaires, styles et scènes */}
                         <div className='flex justify-between md:justify-center'>
                             <div> 
                                 {<SelectJour defaultValue={jour} onSelect={handleOnSelectJour} options={joursList} />} 

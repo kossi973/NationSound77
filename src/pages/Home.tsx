@@ -7,23 +7,22 @@ import AfficherTitre from '../components/AfficherTitre';
 
 const logoUrl = '/images/logo-ns.png';
 
-
+// Afficher la page d'accueil avec le programme du festival et les liens vers la programmation, la billeterie et la carte interactive
 function Home() {
     const [calendrier, setCalendrier] = useState<CalendrierProps[]>([]);
     const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
     const [artistesList, setArtistesList] = useState<ArtisteProps[]>([]);
     const [actualites, setActualites] = useState<{[key: string]: EventsListProps[]}>({});
 
-    FetchData('wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc', setCalendrier );
-    FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList );
-    FetchData('wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc', setArtistesList );
+    FetchData('wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc', setCalendrier ); // Récupérer le calendrier du festival
+    FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList ); // Récupérer le programme du festival
+    FetchData('wp-json/wp/v2/artiste-du-festival?_fields=acf&per_page=50&orderby=title&order=asc', setArtistesList ); // Récupérer la liste des artistes programmés
 
     useEffect(() => {
-        //Trier la liste des événements par horaires
+        //Trier la liste des événements par horaires et par jours
         const trierHoraires = eventsList.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
-        //Puis par jours
         const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
-        // Grouper les events par jours  
+        // Grouper les événements par jours  
         const grouperJours = trierJours.reduce((acc: { [key: string]: EventsListProps[] }, event: EventsListProps) => {
             if (!acc[event.acf.jour_event]) {
                 acc[event.acf.jour_event] = [];
@@ -31,12 +30,12 @@ function Home() {
             acc[event.acf.jour_event].push(event);
             return acc;
         }, {} as { [key: string]: EventsListProps[] });
-        setActualites(grouperJours);
+        setActualites(grouperJours); // Définir le programme journalier
         
     },[eventsList]);
 
     return (
-        // page principale SOUND NATION
+        // page principale SOUND NATION: afficher le programme par jour avec le visuel des artistes
         <main className='min-h-screen bg-hero'>
             <div className='min-h-screen bg-amber-600/90 flex contain-fluid overflow-hidden grid text-yellow-100'>
                 <AfficherTitre titre="FESTIVAL NATION SOUND" />

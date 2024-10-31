@@ -2,12 +2,12 @@ import { useRef } from 'react';
 import { EventsListProps } from '../config/Context';
 import { ArtisteProps } from '../config/Context';
 
-export interface FicheProps {
+interface FicheProps {
   artiste: ArtisteProps;
   eventsArtiste: EventsListProps[];
 }
 
-// Afficher la fiche de l'artiste
+// Composant pour afficher la fiche détaillée de l'artiste
 const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
   const {url_du_visuel, nom_de_lartiste, style_de_lartiste, description_de_lartiste} = artiste.acf;
 
@@ -25,6 +25,8 @@ const FicheArtiste: React.FC<FicheProps> = ({ artiste , eventsArtiste } ) =>  {
   };
   
   return (
+    // Fiche artiste: afficher le bouton "Voir +" pour ouvrir la fiche modale
+    //   Afficher la description de l'artiste et son programme sur le festival
     <>
       <div className='text-right'>
           <button onClick={OuvrirFiche} className='text-cyan-200 underline font-bold active:text-amber-500 pb-1 pr-1'>Voir +</button>

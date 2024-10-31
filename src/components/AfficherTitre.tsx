@@ -4,6 +4,7 @@ interface AfficherTitreProps {
     titre: string;
 }
 
+// Composant pour afficher le titre d'une page
 const AfficherTitre: React.FC<AfficherTitreProps> = ({titre}) => {
     return (
         <div className='bg-hero2 bg-cover bg-bottom h-20 md:h-40 shadow-lg shadow-orange-300'>

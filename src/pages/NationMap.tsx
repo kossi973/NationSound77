@@ -7,25 +7,25 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import {MarkersProps, FiltersMarkersProps, EventsListProps} from '../config/Context';
 import FetchData from '../components/FetchData';
 
+// Typescript nécessite le typage du contrôle Routing
 declare module 'leaflet' {
   namespace Routing {
     function control(options: any): any;
   }
 }
 
-// Coordonnées du festival
+// Coordonnées du festival par défaut
 const centerLat = 48.84840264440768;
 const centerLong = 2.6710615016030226;
 const locationRedIcon = 'https://cdn-icons-png.flaticon.com/512/684/684908.png';
-// const visitorRedIcon = 'https://cdn-icons-png.flaticon.com/512/6638/6638791.png';
 
-// Define custom icon
-function customIcon(urlMarker: string) {
+// Définir un icône personnalisé: url de l'image, taille de l'icône et points d'ancrage icône et popup
+function customIcon(urlMarker: string) { 
   return new L.Icon({
     iconUrl: urlMarker,
-    iconSize: [40, 40], // size of the icon
-    iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
-    popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
+    iconSize: [40, 40],
+    iconAnchor: [25, 25],
+    popupAnchor: [1, -34],
 });
 };
 
@@ -41,6 +41,7 @@ const filtresMarkers = [
   { id: "id8", label: "parkings", check: true }
 ];
 
+// Afficher la carte interactive: les filtres des points d'intérêts (POI), la carte et les POI, l'affichage de l'itinéraire
 const NationMap = () => {
   const mapRef = useRef<L.Map>(null);
   const [markers, setMarkers] = useState<MarkersProps[]>([]);
@@ -50,17 +51,17 @@ const NationMap = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [control, setControl] = useState(null);
 
-  FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50&order=asc', setEventsList ); //importer la programmation
-  FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); //importer la liste des points d'intérêts (POI)
+  FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50&order=asc', setEventsList ); // Récupérer le programme du festival
+  FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); // Importer la liste des points d'intérêts (POI)
  
-  // Recadrer la carte
+  // Positionner la carte aux coordonnées avec le zoom indiqué
   const recadrerCarte = (latitude: number, longitude: number, zoom: number) => {
     if (mapRef.current) {
       mapRef.current.setView([latitude, longitude], zoom);
     }
   };
 
-  // Situer le visiteur
+  // Récupérer les coordonnées de l'utilisateur
   function SituerVisiteur() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -72,8 +73,11 @@ const NationMap = () => {
     }
   };
 
+  // Calculer et afficher l'itinéraire de la position du visiteur vers le festival
   function AfficherItineraire(afficher: boolean) {
     const map = mapRef.current;
+    
+    SituerVisiteur();
     
     if (map && userLocation && afficher) {
        const newControl = L.Routing.control({
@@ -92,7 +96,7 @@ const NationMap = () => {
             { color: 'blue', opacity: 0.5, weight: 2 } 
            ]
           },
-        createMarker: () => { return null; }
+        createMarker: () => { return null; } // Supprimer les markers de départ et d'arrivée
 
       }).addTo(map);
       setControl(newControl);
@@ -111,17 +115,17 @@ const NationMap = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Reset des filtres
+    // Reset des filtres au chargement de la page
     filtresMarkers.forEach(filter => filter.check = true);
   }, []);
 
   useEffect(() => {
-    // Afficher les markers 
+    // Afficher les POI et la position de l'utilisateur au chargement de la liste 
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check ))); 
     SituerVisiteur();
   }, [markers]);
 
-  // Afficher les markers filtrés
+  // Afficher les POI filtrés: le bouton "festival" affiche tous les POI et recentre la carte sur le festival
   const handleOnClick = (filtre: FiltersMarkersProps) => {
     if (filtre.label === "Le festival") {
       recadrerCarte(centerLat, centerLong, 15); 
@@ -133,6 +137,7 @@ const NationMap = () => {
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )));
   };
 
+  // Construire les informations des popup des POI; pour les POI de type scène, afficher les concerts
   const AfficherInfosPOI = (categoriePOI: string, nomPOI: string) => {
     let infosScene;
     if (categoriePOI !== "scenes") {
@@ -142,9 +147,8 @@ const NationMap = () => {
 
         // Sélectionner les événements de la scène
         const sceneEvents = eventsList.filter( event => event.acf.scene_festival === noScene);
-        // Trier la liste des événements par horaires
+        // Trier la liste des événements par horaires et par jours
         const trierHoraires = sceneEvents.sort((a, b) => a.acf.horaire_event > b.acf.horaire_event ? 1 : -1);
-        // Puis par jours
         const trierJours = trierHoraires.sort((a, b) => a.acf.jour_event - b.acf.jour_event);
         // Mettre en forme le programme de la scène
         const programmeScene = trierJours.map(event => "&nbsp ► Jour " + event.acf.jour_event + " - " + event.acf.horaire_event.slice(0,5) + " - " + event.acf.event_festival + " " + event.acf.artiste_festival);    
@@ -155,6 +159,7 @@ const NationMap = () => {
   }
 
   return (
+    // page carte interactive: afficher le bloc de filtres, le bouton "Itinéraire" et la carte avec l'icône du visiteur et les POI et les popup associés
     <>
       <div className="bg-hero2 bg-cover bg-bottom flex flex-wrap justify-start md:justify-end p-2">
         {filtresMarkers.map((filtre) => (
@@ -168,7 +173,7 @@ const NationMap = () => {
       </div>
       <hr className="h-2 bg-amber-400" />
       <div>
-        <MapContainer
+        <MapContainer // Afficher la carte interactive Leaflet
           center={[centerLat, centerLong]}
           zoom={15}
           ref={mapRef}
@@ -178,12 +183,12 @@ const NationMap = () => {
             attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {userLocation && (
+          {userLocation && ( // Afficher la position du visiteur
             <Marker position={userLocation} icon={customIcon(locationRedIcon)}>
               <Popup>Vous êtes ici</Popup>
             </Marker>
           )}          
-          {filteredMarkers.map((marker, index) => (
+          {filteredMarkers.map((marker, index) => ( // Afficher les POI
             <Marker key={index} position={[marker.acf.latitudeMarker, marker.acf.longitudeMarker]} icon={customIcon(marker.acf.urlMarker)}>
                 <Popup>
                   <div className="text-blue-900 font-bold" dangerouslySetInnerHTML={{ __html: AfficherInfosPOI(marker.acf.categorieMarker, marker.acf.nomMarker) }} />                  

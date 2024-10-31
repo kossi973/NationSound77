@@ -1,3 +1,4 @@
+// Fonction pour formater le mois d'une date en littéral
 const FormaterDate = (dateString: string) => {
     const annee = dateString.slice(0,4);
     const moisAconvertir = dateString.slice(4,6);
