@@ -12,7 +12,7 @@ const Header = () => {
         <div>
             <header className="container-fluid h-24 md:h-32 w-full bg-amber-400 mx-auto flex justify-between items-center px-5 md:px-10">
                 <div>                    
-                    <Link to={"/"} className='my-6 active:text-2xl' onClick={() => setIsOpen(false)}><img className="h-20 md:h-24 rounded-full" src={logoUrl} alt="logo-ns" /></Link>
+                    <Link to={"/"} onClick={() => setIsOpen(false)}><img className="h-20 md:h-24 rounded-full" src={logoUrl} alt="logo-ns" /></Link>
                 </div>
 
                 <div className='md:hidden'>

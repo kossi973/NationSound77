@@ -15,8 +15,8 @@ declare module 'leaflet' {
 }
 
 // Coordonnées du festival par défaut
-const centerLat = 48.84840264440768;
-const centerLong = 2.6710615016030226;
+const centerLat = 48.84700319524508;
+const centerLong = 2.6713022118184906;
 const locationRedIcon = 'https://cdn-icons-png.flaticon.com/512/684/684908.png';
 
 // Définir un icône personnalisé: url de l'image, taille de l'icône et points d'ancrage icône et popup
