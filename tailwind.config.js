@@ -8,6 +8,7 @@ export default {
         hero2: "url('/images/bg-ns03.jpg')",
         hero3: "url('/images/CarteFestival.png')",
       },
+      colors: { beige: "#D98C3D" },
     },
   },
   plugins: [],

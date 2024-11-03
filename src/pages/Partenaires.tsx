@@ -9,8 +9,8 @@ function Partenaires() {
       }, []);
 
     return (
-        <main className='min-h-screen bg-hero'>
-            <div className='min-h-screen bg-amber-800/90 flex contain-fluid overflow-hidden grid text-yellow-100'>
+        <main className='min-h-screen bg-beige'>
+            <div className='min-h-screen flex contain-fluid overflow-hidden grid text-yellow-100'>
                 <AfficherTitre titre="NOS PARTENAIRES" />
                 <iframe className="pt-3 h-[82rem] md:h-[98rem]" src= {wpPath + "partenaires/"} height="100vh"  width="100%"></iframe>                
             </div>

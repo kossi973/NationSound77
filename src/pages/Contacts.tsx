@@ -9,10 +9,10 @@ function Contacts() {
       }, []);
       
     return (
-        <main className='min-h-screen bg-hero'>
-            <div className='min-h-screen bg-amber-800/90 flex contain-fluid overflow-hidden grid text-yellow-100'>
+        <main className='min-h-screen bg-beige'>
+            <div className='min-h-screen flex contain-fluid overflow-hidden grid text-yellow-100'>
                 <AfficherTitre titre="NOUS CONTACTER" />
-                <iframe className="pt-3 h-[65rem] md:h-[80rem]" src= {wpPath + "nous-contacter/"} height="100vh" width="100%"></iframe>
+                <iframe className="pt-3 h-[60rem]" src= {wpPath + "nous-contacter/"} height="100vh" width="100%"></iframe>
             </div>
         </main>
     );
