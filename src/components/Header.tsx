@@ -30,7 +30,7 @@ const Header = () => {
                     <div className="right-10 z-10 shadow-md shadow-orange-300 text-yellow-200 text-lg font-bold absolute top-24 h-86 w-4/5 rounded-b-xl bg-amber-600/95 md:hidden">
                         <div>
                             <nav className='flex flex-col pl-4' onClick={() => setIsOpen(!isOpen)}>
-                                <Link to={"/"} className='my-6 hover:text-2xl delay-100'>Accueil </Link>
+                                <Link to={"/"} className='my-6 hover:text-2xl delay-100'>Concerts/Actualités</Link>
                                 <Link to={"/Programmation"} className='mb-6 hover:text-2xl delay-100'>Programmation</Link>
                                 <Link to={"/Billeterie"} className='mb-6 hover:text-2xl delay-100'>Billetterie </Link>
                                 <Link to={"/Faq"} className='mb-6 hover:text-2xl delay-100'>FAQ </Link>
@@ -42,7 +42,7 @@ const Header = () => {
                 {/* Afficher le menu desktop*/}
                 <nav className='hidden md:inline-flex items-center'>
                     <ul className='flex text-red-500 font-bold text-xl' >
-                        <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Accueil</Link></li>
+                        <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Concerts/Actualités</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Programmation"} >Programmation</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Billeterie"} >Billetterie</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Faq"} >FAQ</Link></li>
