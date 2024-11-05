@@ -48,8 +48,8 @@ const NationMap = () => {
   const [filteredMarkers, setfilteredMarkers] = useState<MarkersProps[]>([]);
   const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [control, setControl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false); // gestion du bouton "Itinéraire"
+  const [control, setControl] = useState(null); // gestion du controle de l'affichage de la carte
 
   FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50&order=asc', setEventsList ); // Récupérer le programme du festival
   FetchData('wp-json/wp/v2/point-dinteret?_fields=acf&per_page=50', setMarkers ); // Importer la liste des points d'intérêts (POI)
@@ -100,7 +100,8 @@ const NationMap = () => {
 
       }).addTo(map);
       setControl(newControl);
-            
+      recadrerCarte(userLocation[0], userLocation[1],13); //adapter le zoom
+
       return () => {
         if (map && control) {          
           map.removeControl(control);
@@ -159,17 +160,24 @@ const NationMap = () => {
   }
 
   return (
-    // page carte interactive: afficher le bloc de filtres, le bouton "Itinéraire" et la carte avec l'icône du visiteur et les POI et les popup associés
+    // page carte interactive: afficher le bloc de filtres, le bouton "Moi", le bouton "Itinéraire" et la carte avec l'icône du visiteur et les POI et les popup associés
     <>
-      <div className="bg-hero2 bg-cover bg-bottom flex flex-wrap justify-start md:justify-end p-2">
-        {filtresMarkers.map((filtre) => (
-          <button key={filtre.id} onClick={() => handleOnClick(filtre)}>
-            <p className="border border-1 bg-sky-800 text-sm md:text-lg font-bold md:font-normal text-white italic border rounded-lg p-1 m-1 md:p-2 active:bg-amber-500">{filtre.label}</p>
+      <div className="bg-hero2 bg-cover bg-bottom flex justify-start md:justify-end p-2">
+        <div className="flex-wrap ">
+            {filtresMarkers.map((filtre) => (
+            <button key={filtre.id} onClick={() => handleOnClick(filtre)}>
+              <p className="border border-1 bg-sky-800 text-sm md:text-lg font-bold md:font-normal text-white italic border rounded-lg p-1 m-1 md:p-2 active:bg-amber-500">{filtre.label}</p>
+            </button>
+          ))}
+        </div>
+        <div>
+          <button className="italic px-1 m-1 md:p-2 text-sky-900 font-bold bg-amber-200 rounded-lg ml-2 border-2 border-cyan-800 active:bg-amber-500" onClick={() => {if(userLocation) {recadrerCarte(userLocation[0], userLocation[1],14);}}}>
+            <p>Vous</p>
           </button>
-        ))}
-        <button className="italic px-2 md:p-2 text-sky-900 font-bold bg-amber-200 rounded-lg m-2 border-2 border-cyan-800 active:bg-amber-500" onClick={() => {setIsOpen(!isOpen); AfficherItineraire(!isOpen);}}>
-          <p>Itinéraire</p>
-        </button>
+          <button className="italic px-1 m-1 md:p-2 text-sky-900 font-bold bg-amber-200 rounded-lg ml-2 border-2 border-cyan-800 active:bg-amber-500" onClick={() => {setIsOpen(!isOpen); AfficherItineraire(!isOpen);}}>
+            <p>Itinéraire</p>
+          </button>
+        </div>
       </div>
       <hr className="h-2 bg-amber-400" />
       <div>
