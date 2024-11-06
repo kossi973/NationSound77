@@ -185,7 +185,7 @@ const NationMap = () => {
           center={[centerLat, centerLong]}
           zoom={15}
           ref={mapRef}
-          style={{ zIndex: 5, height: "70vh", width: "100vw" }}
+          style={{ zIndex: 5, height: "70vh", width: "100%" }}
         >
           <TileLayer
             attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
