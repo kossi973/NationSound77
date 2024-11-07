@@ -126,15 +126,15 @@ const NationMap = () => {
     SituerVisiteur();
   }, [markers]);
 
-  // Afficher les POI filtrés: le bouton "festival" affiche tous les POI et recentre la carte sur le festival
+  // Afficher les POI filtrés, recentre la carte sur le festival et repositionne le visiteur; le bouton "festival" affiche tous les POI.
   const handleOnClick = (filtre: FiltersMarkersProps) => {
     if (filtre.label === "Le festival") {
-      recadrerCarte(centerLat, centerLong, 15); 
-      SituerVisiteur();
       filtresMarkers.forEach(filter => filter.check = true);
     } else {
       filtresMarkers.forEach(filter => filter.check = filter.label === filtre.label);
     }
+    SituerVisiteur();
+    recadrerCarte(centerLat, centerLong, 15); 
     setfilteredMarkers(markers.filter((marker) => (filtresMarkers).some((filtre) => (filtre.label === marker.acf.categorieMarker) && filtre.check )));
   };
 
