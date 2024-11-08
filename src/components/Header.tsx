@@ -41,7 +41,7 @@ const Header = () => {
                     
                 {/* Afficher le menu desktop*/}
                 <nav className='hidden md:inline-flex items-center'>
-                    <ul className='flex text-red-500 font-bold text-xl' >
+                    <ul className='flex text-red-500 font-bold md:text-lg xl:text-xl' >
                         <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Concerts/Actualités</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Programmation"} >Programmation</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Billeterie"} >Billetterie</Link></li>
