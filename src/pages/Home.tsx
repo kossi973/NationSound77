@@ -35,12 +35,12 @@ function Home() {
     },[eventsList]);
 
     return (
-        // page principale SOUND NATION: afficher le nombre de concerts et le programme par jour avec le visuel des artistes
+        // page principale SOUND NATION: afficher la synthèse du nombre d'artistes, de concerts, de jours et le programme par jour avec le visuel des artistes
         <main className='min-h-screen bg-hero'>
             <div className='min-h-screen bg-amber-600/90 flex contain-fluid overflow-hidden grid text-yellow-100'>
                 <AfficherTitre titre="FESTIVAL NATION SOUND" />
                 <div>
-                    <p className='text-center text-yellow-200 font-bold italic text-2xl bg-blue-800/80 py-2 w-full md:w-1/2 mx-auto mt-3 border rounded-lg pr-2'>{eventsList.filter(event => event.acf.event_festival === "Live").length} concerts / {calendrier.length} jours</p>
+                    <p className='text-center text-yellow-200 font-bold italic text-2xl bg-blue-800/80 py-2 w-full md:w-1/2 mx-auto mt-3 border rounded-lg'>{artistesList.length} artistes - {eventsList.filter(event => event.acf.event_festival === "Live").length} concerts - {calendrier.length} jours</p>
                 </div>
                 <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 border rounded-lg shadow-lg shadow-orange-300'>
                     { Object.keys(actualites).map((jour: string ) => (
