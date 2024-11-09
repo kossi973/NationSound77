@@ -3,6 +3,7 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import FicheArtiste from '../components/FicheArtiste';
 import FetchData from '../components/FetchData';
 import AfficherTitre from '../components/AfficherTitre';
+import Tranche2H from '../components/Tranche2H';
 
 type SelectFilters1Props = {
     defaultValue: number;
@@ -130,19 +131,10 @@ function Programmation() {
     
     }, [artistesList]);
 
-    const HoraireMax = (horaire: string) => { // Ajouter 1h59 à l'horaire
-        let max = "23:59";
-        if (horaire != "00:00") {
-            const heure = (Number(horaire.slice(0,2)) + 1) % 24;
-            max = heure.toString() + ":" + "59";
-        }        
-        return max;
-    };
-
     useEffect(() => {
         // Croiser deux listes distinctes pour identifier les artistes filtrés :
             // filtrer le programme par jour, horaire et scene
-        const eventsFiltres = eventsList.filter((event) => (event.acf.jour_event === jour || jour === 0) && (event.acf.horaire_event >= horaire) && (event.acf.horaire_event <= HoraireMax(horaire)) && (event.acf.scene_festival === scene || scene === 0));
+        const eventsFiltres = eventsList.filter((event) => (event.acf.jour_event === jour || jour === 0) && (event.acf.horaire_event >= horaire) && (event.acf.horaire_event < Tranche2H(horaire)) && (event.acf.scene_festival === scene || scene === 0));
             // puis récupérer la liste des artistes résultant de ce filtrage
         const artistesEvents = (eventsFiltres.map(event => event.acf.artiste_festival));
             // enfin, filtrer la liste des artistes programmés selon le style et croiser avec la liste précédente
