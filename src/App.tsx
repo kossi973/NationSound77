@@ -8,7 +8,6 @@ import Partenaires from "./pages/Partenaires"
 import Contacts from "./pages/Contacts"
 import MentionsLegales from "./pages/MentionsLegales"
 import Faq from "./pages/Faq"
-import Billeterie from "./pages/Billeterie"
 
 function App() {
   //Structurer l'application
@@ -23,7 +22,6 @@ function App() {
                 <Route path="/Partenaires" element={<Partenaires />}/>
                 <Route path="/Contacts" element={<Contacts />}/>
                 <Route path="/MentionsLegales" element={<MentionsLegales />}/>
-                <Route path="/Billeterie" element={<Billeterie />}/>
             </Routes>
           <Footer />
     </>

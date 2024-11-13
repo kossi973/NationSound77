@@ -32,7 +32,7 @@ const Header = () => {
                             <nav className='flex flex-col pl-4' onClick={() => setIsOpen(!isOpen)}>
                                 <Link to={"/"} className='my-6 hover:text-2xl delay-100'>Concerts/Actualités</Link>
                                 <Link to={"/Programmation"} className='mb-6 hover:text-2xl delay-100'>Programmation</Link>
-                                <Link to={"/Billeterie"} className='mb-6 hover:text-2xl delay-100'>Billetterie </Link>
+                                <a href="https://nationsound77.infinityfreeapp.com/nationsound-wp/billeterie/" className='mb-6 hover:text-2xl delay-100'>Billetterie</a>
                                 <Link to={"/Faq"} className='mb-6 hover:text-2xl delay-100'>FAQ </Link>
                                 <Link to={"/NationMap"} className='mb-6 hover:text-2xl delay-100'>Carte Interactive </Link>
                             </nav>
@@ -44,7 +44,7 @@ const Header = () => {
                     <ul className='flex text-red-500 font-bold md:text-lg xl:text-xl' >
                         <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Concerts/Actualités</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Programmation"} >Programmation</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Billeterie"} >Billetterie</Link></li>
+                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><a href="https://nationsound77.infinityfreeapp.com/nationsound-wp/billeterie/">Billetterie</a></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Faq"} >FAQ</Link></li>
                         <li className='mr-10 mb-6 hover:text-2xl delay-100'><Link to={"/NationMap"} >Carte Interactive </Link></li>
                     </ul>                    
