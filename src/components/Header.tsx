@@ -44,7 +44,7 @@ const Header = () => {
                     <ul className='flex text-red-500 font-bold md:text-lg xl:text-xl' >
                         <li className='mr-4 hover:text-2xl delay-100'><Link to={"/"}>Concerts/Actualités</Link></li>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Programmation"} >Programmation</Link></li>
-                        <li className='mr-4 mb-6 hover:text-2xl delay-100'><a href="https://nationsound77.infinityfreeapp.com/nationsound-wp/billeterie/">Billetterie</a></li>
+                        <a href="https://nationsound77.infinityfreeapp.com/nationsound-wp/billeterie/" className='mb-6 hover:text-2xl delay-100'>Billetterie</a>
                         <li className='mr-4 mb-6 hover:text-2xl delay-100'><Link to={"/Faq"} >FAQ</Link></li>
                         <li className='mr-10 mb-6 hover:text-2xl delay-100'><Link to={"/NationMap"} >Carte Interactive </Link></li>
                     </ul>                    

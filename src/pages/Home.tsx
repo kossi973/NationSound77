@@ -55,8 +55,10 @@ function Home() {
                                             <img src={artistesList.find((artiste) => artiste.acf.nom_de_lartiste === event.acf.artiste_festival)?.acf.url_du_visuel || logoUrl} alt="Nation Sound" className='rounded-md w-12 h-12 lg:size-24'/>
                                             <div className='pl-4 my-auto italic text-lg'>                                                
                                                 <p>{event.acf.horaire_event.slice(0,5)} - {event.acf.event_festival} {event.acf.artiste_festival}</p>
-                                                <span className='pl-2 text-base'>» </span>
-                                                <span>scène {event.acf.scene_festival}</span>
+                                                <div className='text-yellow-100/75'>
+                                                    <span className='pl-2 text-base'>» </span>
+                                                    <span>scène {event.acf.scene_festival}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
