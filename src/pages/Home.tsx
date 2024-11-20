@@ -12,7 +12,7 @@ function Home() {
     const [calendrier, setCalendrier] = useState<CalendrierProps[]>([]);
     const [eventsList, setEventsList] = useState<EventsListProps[]>([]);
     const [artistesList, setArtistesList] = useState<ArtisteProps[]>([]);
-    const [actualites, setActualites] = useState<{[key: string]: EventsListProps[]}>({});
+    const [programme, setProgramme] = useState<{[key: string]: EventsListProps[]}>({});
 
     FetchData('wp-json/wp/v2/calendrier-festival?_fields=acf&orderby=title&order=asc', setCalendrier ); // Récupérer le calendrier du festival
     FetchData('wp-json/wp/v2/programmation-ns?_fields=acf&per_page=50', setEventsList ); // Récupérer le programme du festival
@@ -30,7 +30,7 @@ function Home() {
             acc[event.acf.jour_event].push(event);
             return acc;
         }, {} as { [key: string]: EventsListProps[] });
-        setActualites(grouperJours); // Définir le programme journalier
+        setProgramme(grouperJours); // Définir le programme journalier
         
     },[eventsList]);
 
@@ -43,13 +43,13 @@ function Home() {
                     <p className='text-center text-yellow-200 font-bold italic text-2xl bg-blue-800/80 py-2 w-full md:w-1/2 mx-auto mt-3 border rounded-lg'>{artistesList.length} artistes - {eventsList.filter(event => event.acf.event_festival === "Live").length} concerts - {calendrier.length} jours</p>
                 </div>
                 <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 border rounded-lg shadow-lg shadow-orange-300'>
-                    { Object.keys(actualites).map((jour: string ) => (
+                    { Object.keys(programme).map((jour: string ) => (
                         <div key={jour} className='mb-16'>
                             <p className='mt-4 text-xl text-center'>-- JOUR {jour} --</p>
                             <p className='text-yellow-400 text-xl text-center'>{calendrier.map((event) => event.acf.jour_festival == +jour ? FormaterDate(event.acf.date_festival) : "")}</p>
                             <hr className='my-2'></hr>
                             <ul className='pl-8 xl:pl-64'>
-                                {actualites[jour].map((event, index) => (
+                                {programme[jour].map((event, index) => (
                                     <li key={index} className='my-4'>                                                                              
                                         <div className='flex'>
                                             <img src={artistesList.find((artiste) => artiste.acf.nom_de_lartiste === event.acf.artiste_festival)?.acf.url_du_visuel || logoUrl} alt="Nation Sound" className='rounded-md w-12 h-12 lg:size-24'/>
