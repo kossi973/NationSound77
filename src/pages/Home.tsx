@@ -40,9 +40,9 @@ function Home() {
             <div className='min-h-screen bg-amber-600/90 flex contain-fluid overflow-hidden grid text-yellow-100'>
                 <AfficherTitre titre="FESTIVAL NATION SOUND" />
                 <div>
-                    <p className='text-center text-yellow-200 font-bold italic text-2xl lg:text-3xl xl:text-4xl bg-blue-800/80 py-2 w-full md:w-1/2 mx-auto mt-3 border rounded-lg'>{artistesList.length} artistes - {eventsList.filter(event => event.acf.event_festival === "Live").length} concerts - {calendrier.length} jours</p>
+                    <p className='text-center text-yellow-200 font-bold italic text-2xl lg:text-3xl xl:text-4xl bg-blue-800/80 py-2 w-full md:w-1/2 mx-auto mt-1 border rounded-lg'>{artistesList.length} artistes - {eventsList.filter(event => event.acf.event_festival === "Live").length} concerts - {calendrier.length} jours</p>
                 </div>
-                <div className='font-bold h-auto my-3 w-full md:w-1/2 mx-auto bg-blue-800/80 border rounded-lg shadow-lg shadow-orange-300'>
+                <div className='font-bold h-auto my-1 w-full md:w-1/2 mx-auto bg-blue-800/80 border rounded-lg shadow-lg shadow-orange-300'>
                     { Object.keys(programme).map((jour: string ) => (
                         <div key={jour} className='mb-16'>
                             <p className='mt-4 text-xl text-center'>-- JOUR {jour} --</p>
@@ -69,13 +69,13 @@ function Home() {
                     ))}
                 </div>
                 
-                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
+                <button className='h-14 w-full mb-1 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
                   <Link to={"/Programmation"}>PROGRAMMATION</Link>
                 </button>
-                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
+                <button className='h-14 w-full mb-1 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
                   <a href="https://nationsound77.infinityfreeapp.com/nationsound-wp/billeterie/">BILLETTERIE</a>
                 </button>
-                <button className='h-14 w-full mb-3 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
+                <button className='h-14 w-full mb-1 md:w-1/2 px-8 mx-auto text-xl font-bold border rounded-lg bg-blue-800/80 shadow-lg shadow-orange-300 hover:ring hover:ring-violet-300 active:shadow-xl active:bg-amber-500'>
                   <Link to={"/NationMap"}>CARTE INTERACTIVE</Link>
                 </button>
             </div>
