@@ -2,7 +2,7 @@
 Déploiement de l'application Nation Sound
 -----------------------------------------
 
-L'application est composée d'un front-office développé en React JS Typescript (NationSound77) et d'un back-office réalisé avec WordPress en mode Headless (NationSound77BkEnd)
+L'application est composée d'un front-office développé en React JS Typescript (NationSound77) et d'un back-office réalisé avec WordPress (NationSound77BkEnd)
 Le site est déployé chez l'hébergeur Infinityfree.
 L'adresse du site : https://nationsound77.infinityfreeapp.com/
 
